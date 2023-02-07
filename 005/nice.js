@@ -17,7 +17,6 @@ size
     });
 
 //start
-
 let settings = localStorage.getItem('bc');
 if (null === settings) {
     settings = {
@@ -28,7 +27,6 @@ if (null === settings) {
 } else {
     settings = JSON.parse(settings);
 }
-
 
 htmlBody.style.backgroundColor = settings.color;
 color.value = settings.color;
