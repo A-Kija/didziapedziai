@@ -1,0 +1,15 @@
+.A .B .C .row-1 {
+    color: crimson;
+}
+
+.A .B .C .row-2 {
+    color: skyblue;
+}
+
+.A .B .bin {
+    color: coral;
+}
+
+.A .B .bin.brick {
+    color: brown;
+}

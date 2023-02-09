@@ -40,3 +40,33 @@
 h2 {
     color: crimson;
 }
+
+h1 {
+    &.blue {
+        background-color: #61dafb;
+    }
+    &.green {
+        background-color: lightgreen;
+    }
+    &.yellow {
+        background-color: lightyellow;
+    }
+}
+
+$brick: brown;
+.A .B {
+    .bin {
+        color: coral;
+        &.brick {
+            color: $brick;
+        }
+    }
+    .C {
+        .row-1 {
+            color: crimson;
+        }
+        .row-2 {
+            color: skyblue;
+        }
+    }
+}
