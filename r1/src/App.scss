@@ -38,7 +38,7 @@
 }
 
 h2 {
-    color: crimson;
+    color: darkcyan;
 }
 
 h1 {
@@ -68,5 +68,15 @@ $brick: brown;
         .row-2 {
             color: skyblue;
         }
+    }
+}
+
+.list-bin {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    i {
+        font-size: 0.6em;
     }
 }
