@@ -80,3 +80,49 @@ $brick: brown;
         font-size: 0.6em;
     }
 }
+
+// ---------------------BUTTON
+$butonBlue: skyblue;
+$butonGray: gray;
+$butonRed: crimson;
+$butonCoral: coral;
+button {
+    display: inline-block;
+    padding: 7px 30px;
+    margin: 20px 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 300;
+    border: none;
+    outline: none;
+    text-align: center;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    background-color: $butonGray;
+    color: white;
+    &:hover {
+        background-color: darken($butonGray, 20%);
+    }
+    &.blue {
+        background-color: $butonBlue;
+        color: white;
+        &:hover {
+            background-color: darken($butonBlue, 20%);
+        }
+    }
+    &.red {
+        background-color: $butonRed;
+        color: white;
+        &:hover {
+            background-color: darken($butonRed, 20%);
+        }
+    }
+    &.coral {
+        background-color: $butonCoral;
+        color: white;
+        &:hover {
+            background-color: darken($butonCoral, 20%);
+        }
+    }
+}
