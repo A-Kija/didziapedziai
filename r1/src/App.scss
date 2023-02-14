@@ -88,6 +88,7 @@ $butonRed: crimson;
 $butonCoral: coral;
 button {
     display: inline-block;
+    user-select: none;
     padding: 7px 30px;
     margin: 20px 10px;
     border-radius: 10px;
@@ -123,6 +124,43 @@ button {
         color: white;
         &:hover {
             background-color: darken($butonCoral, 20%);
+        }
+    }
+    &.small {
+        padding: 2px 3px;
+        margin: 2px 3px;
+        font-size: 20px;
+        border-radius: 5px;
+    }
+}
+
+.sq-bin {
+    display: flex;
+    width: 55%;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px;
+    .sq {
+        width: 150px;
+        height: 150px;
+        border: 5px solid yellowgreen;
+        border-radius: 10px;
+        margin: 5px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: white;
+        background-color: darkgray;
+        flex-wrap: wrap;
+        &.spin {
+            animation: App-logo-spin infinite 5s linear;
+        }
+        .spin-back {
+            animation: App-logo-spin infinite 5s linear;
+            animation-direction: reverse;
         }
     }
 }
