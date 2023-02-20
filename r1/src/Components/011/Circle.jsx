@@ -12,8 +12,7 @@ function Circle({children}) {
         <button className="blue" onClick={() => setCount(c => c + 1)}>plus 1</button>
         <div className="circle">
             {
-                children.map((n, i) => ({...n, props: {...n.props, count: count + i  }})) 
-                
+                children.map((n, i) => ({...n, props: {...n.props, count: count + i }})) 
             }
         </div>
         </>
