@@ -102,6 +102,7 @@ button {
     text-transform: uppercase;
     background-color: $butonGray;
     color: white;
+    cursor: pointer;
     &:hover {
         background-color: darken($butonGray, 20%);
     }
@@ -161,6 +162,51 @@ button {
         .spin-back {
             animation: App-logo-spin infinite 5s linear;
             animation-direction: reverse;
+        }
+    }
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    border: 10px dashed orange;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: App-logo-spin infinite 15s linear;
+    .circle-number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: App-logo-spin infinite 15s linear;
+        animation-direction: reverse;
+        &.n1 {
+            background-color: darkorange;
+            top: 120px;
+            left: 10px;
+        }
+        &.n2 {
+            background-color: darkorchid;
+            top: 120px;
+            right: 10px;
+        }
+        &.n3 {
+            background-color: darkgoldenrod;
+            top: 10px;
+            left: 120px;
+        }
+        &.n4 {
+            background-color: darkolivegreen;
+            bottom: 10px;
+            right: 120px;
         }
     }
 }
