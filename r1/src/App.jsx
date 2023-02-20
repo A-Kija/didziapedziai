@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import './App.scss';
 import BaseButton from './Components/011/Design/BaseButton';
+import BlueButton from './Components/011/Design/BlueButton';
 import RedButton from './Components/011/Design/RedButton';
 import Sq from './Components/011/Design/Sq';
-import { withAdd, withClear } from './Components/011/HOCs/sq';
+import { withAdd, withClear, withColor } from './Components/011/HOCs/sq';
 // import Circle from './Components/011/Circle';
 // import Number from './Components/011/Number';
 
@@ -14,6 +15,7 @@ function App() {
 
     const BaseButtonWithAdd = withAdd(BaseButton);
     const RedButtonWithClear = withClear(RedButton);
+    const BlueButtonWithColor = withColor(BlueButton);
 
     return (
         <div className="App">
@@ -32,6 +34,7 @@ function App() {
                 <div className="sq-bin">
                     <BaseButtonWithAdd title="add" setSq={setSq} />
                     <RedButtonWithClear title="clear" setSq={setSq} />
+                    <BlueButtonWithColor title="color" setSq={setSq} /> 
                 </div>
                 
 
