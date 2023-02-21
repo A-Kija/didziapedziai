@@ -1,42 +1,61 @@
 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import './App.scss';
-import BaseButton from './Components/011/Design/BaseButton';
-import BlueButton from './Components/011/Design/BlueButton';
-import RedButton from './Components/011/Design/RedButton';
-import Sq from './Components/011/Design/Sq';
-import { withAdd, withClear, withColor } from './Components/011/HOCs/sq';
-// import Circle from './Components/011/Circle';
-// import Number from './Components/011/Number';
+
+const select = [
+    {text: 'Now', value: 'n'},
+    {text: 'Today', value: 't'},
+    {text: 'Tomorrow', value: 'tm'},
+    {text: 'Next Week', value: 'nw'}
+]
 
 function App() {
 
-    const [sq, setSq] = useState([]);
+    const [h1Wish, setH1Wish] = useState([]);
 
-    const BaseButtonWithAdd = withAdd(BaseButton);
-    const RedButtonWithClear = withClear(RedButton);
-    const BlueButtonWithColor = withColor(BlueButton);
+    const [wish, setWish] = useState('');
+    const [when, setWhen] = useState('t');
+
+    // const w = useRef();
+
+    const showWish = () => {
+        // setH1Wish(w.current.value);
+        setH1Wish(w => [{wish, when}, ...w]);
+        setWish('');
+    }
+
+    const wishControll = e => {
+        setWish(e.target.value);
+    }
+
+    const whenControll = e => {
+        setWhen(e.target.value);
+    }
+
+    
 
     return (
         <div className="App">
             <header className="App-header">
-            {/* <Circle>
-                <Number type="n1"/>
-                <Number type="n2"/>
-                <Number type="n3"/>
-                <Number type="n4"/>
-            </Circle> */}
-                <div className="sq-bin">
+                <h1>
                     {
-                        sq.map((s, i) => s.show ? <Sq key={i} s={s} i={i} setSq={setSq} /> : null)
+                        h1Wish.map((w, i) => <div key={i}>{w.wish} {select.find(s => s.value === w.when ).text}</div>)
                     }
+                </h1>
+                <div className="input-bin red">
+                    <label>Enter your Wish</label>
+                    <input type="text" value={wish} onChange={wishControll} />
+
+                    <label>When</label>
+                    <select value={when} onChange={whenControll}>
+                        {
+                            select.map(s => <option key={s.value} value={s.value}>{s.text}</option>)
+                        }
+                    </select>
+
+                    <button className="blue" onClick={showWish}>enter</button>
                 </div>
-                <div className="sq-bin">
-                    <BaseButtonWithAdd title="add" setSq={setSq} />
-                    <RedButtonWithClear title="clear" setSq={setSq} />
-                    <BlueButtonWithColor title="color" setSq={setSq} /> 
-                </div>
-                
+
 
             </header>
         </div>
