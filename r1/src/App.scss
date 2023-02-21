@@ -248,6 +248,26 @@ button {
         width: 100%;
         box-sizing: border-box;
     }
+    .cb-bin {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        label.cb {
+            font-size: 0.7em;
+            padding: 0 15px 0 5px;
+            cursor: pointer;
+            user-select: none;
+            color: darkgrey;
+        }
+        input {
+            display: none;
+        }
+        input:checked+label.cb {
+            color: white;
+        }
+    }
     button {
         max-width: 100px;
     }
