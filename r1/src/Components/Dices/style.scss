@@ -8,19 +8,18 @@
 
     .content {
         width: 100%;
-        max-width: 1300px;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
 
         .left {
-            // width: 40%;
             padding-top: 50px;
+            margin: 0 15px;
         }
 
         .right {
-            // width: 60%;
-            padding-top: 40px;
+            padding-top: 50px;
+            margin: 0 15px;
 
             .list {
                 display: flex;
@@ -28,6 +27,7 @@
                 justify-content: space-evenly;
                 flex-direction: row;
                 flex-wrap: wrap;
+                border: 1px solid #87ceeb50;
 
                 .item {
                     width: 322px;
@@ -41,13 +41,27 @@
         }
     }
 
+    .title {
+        border: 1px solid #87ceeb50;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: #87ceeb;
+        font-size: 30px;
+        text-align: center;
+        color: white;
+    }
+
     .dice-edit-create {
         display: flex;
-        border: 1px solid skyblue;
+        border: 1px solid #87ceeb50;
         padding: 15px;
         border-radius: 10px;
         flex-direction: column;
         width: 300px;
+        &.create {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
 
         .top {
             display: flex;
