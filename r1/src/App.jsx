@@ -1,19 +1,19 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
-import Products from './Components/013/Products';
-// import Counter from './Components/013/Counter';
+import Create from './Components/Dices/Create';
+import './Components/Dices/style.scss';
+
 
 function App() {
 
-
-
     return (
-        <div className="App">
-            <header className="App-header">
+        <div className="dices">
+            <div className="content">
+                <div className="left">
+                    <Create />
+                </div>
+                <div className="right">
 
-            <Products />
-
-            </header>
+                </div>
+            </div>
         </div>
     );
 
