@@ -12,28 +12,61 @@
         align-items: flex-start;
         justify-content: space-between;
         .left {
-            width: 30%;
+            width: 40%;
             padding-top: 50px;
         }
         .right {
-            width: 60%
+            width: 50%;
+            padding-top: 50px;
+            .list {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-evenly;
+                flex-direction: row;
+                flex-wrap: wrap;
+                .item {
+                    width: 30%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid skyblue;
+                    margin: 5px;
+                    align-self: stretch;
+                }
+            }
         }
     }
     .dice-edit-create {
         display: flex;
-        border: 2px solid gray;
+        border: 2px solid crimson;
         padding: 10px;
         .dice-bin {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            width: 80%;
+            width: 70%;
             .dice-frame {
                 height: 200px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+            .bottom {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 0;
+                label {
+                    text-align: center;
+                    color: white;
+                    font-size: 30px;
+                    width: 60px;
+                    text-align: center;
+                    background-color: crimson;
+                    border-radius: 5px;
+                }
             }
         }
     }
@@ -65,39 +98,101 @@
     .cb-bin {
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
         flex-direction: column;
         justify-content: flex-start;
-        width: 20%;
+        width: 30%;
         label.cb {
-            font-size: 1em;
-            line-height: 1.6;
+            font-size: 1.1em;
+            line-height: 2;
             cursor: pointer;
             user-select: none;
             color: darkgrey;
+            padding: 4px 7px;
         }
         input {
             display: none;
         }
         input:checked+label.cb {
             color: white;
+            background-color: crimson;
+            border-radius: 5px;
+            padding: 7px;
         }
     }
     .input-bin {
-        width: 80%;
+        width: 100%;
         &.range {
             display: flex;
             align-items: center;
-            label {
-                width: 30%;
-                text-align: center;
-                color: white;
-                font-size: 30px;
-            }
             input {
-                width: 70%;
+                width: 100%;
                 border: none;
             }
         }
+        &.color {
+            width: auto;
+            input {
+                width: 60px;
+                height: 40px;
+                border: none;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+// ---------------------BUTTON
+$butonBlue: skyblue;
+$butonGray: gray;
+$butonRed: crimson;
+$butonCoral: coral;
+button {
+    display: inline-block;
+    user-select: none;
+    padding: 7px 30px;
+    margin: 20px 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 1.1em;
+    border: none;
+    outline: none;
+    text-align: center;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    background-color: $butonGray;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: darken($butonGray, 20%);
+    }
+    &.blue {
+        background-color: $butonBlue;
+        color: white;
+        &:hover {
+            background-color: darken($butonBlue, 20%);
+        }
+    }
+    &.red {
+        background-color: $butonRed;
+        color: white;
+        &:hover {
+            background-color: darken($butonRed, 20%);
+        }
+    }
+    &.coral {
+        background-color: $butonCoral;
+        color: white;
+        &:hover {
+            background-color: darken($butonCoral, 20%);
+        }
+    }
+    &.small {
+        padding: 2px 3px;
+        margin: 2px 3px;
+        font-size: 20px;
+        border-radius: 5px;
     }
 }
