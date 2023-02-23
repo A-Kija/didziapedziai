@@ -9,12 +9,14 @@ const KEY = 'FancyDices';
 function App() {
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
-    const [list, setList] = useState([]);
+    const [list, setList] = useState(null);
     const [createData, setCreateData] = useState(null);
 
     useEffect(() => {
 
-        setList(read(KEY));
+        setTimeout(() => setList(read(KEY)), 1000);
+
+        // setList(read(KEY));
 
     }, [lastUpdate]);
 
