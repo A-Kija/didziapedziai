@@ -5,103 +5,139 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
     .content {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1300px;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+
         .left {
-            width: 40%;
+            // width: 40%;
             padding-top: 50px;
         }
+
         .right {
-            width: 50%;
-            padding-top: 50px;
+            // width: 60%;
+            padding-top: 40px;
+
             .list {
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-evenly;
                 flex-direction: row;
                 flex-wrap: wrap;
+
                 .item {
-                    width: 30%;
+                    width: 322px;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    height: 288px;
+                    margin: 20px 0;
+                }
+            }
+        }
+    }
+
+    .dice-edit-create {
+        display: flex;
+        border: 1px solid skyblue;
+        padding: 15px;
+        border-radius: 10px;
+        flex-direction: column;
+        width: 300px;
+
+        .top {
+            display: flex;
+            .dice-bin {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                width: 70%;
+    
+                .dice-frame {
+                    height: 200px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border: 1px solid skyblue;
-                    margin: 5px;
-                    align-self: stretch;
                 }
+       
             }
         }
-    }
-    .dice-edit-create {
-        display: flex;
-        border: 2px solid crimson;
-        padding: 10px;
-        .dice-bin {
+
+        .bottom {
             display: flex;
-            flex-direction: column;
+            width: 100%;
             align-items: center;
-            justify-content: flex-start;
-            width: 70%;
-            .dice-frame {
-                height: 200px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .bottom {
-                display: flex;
-                width: 100%;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px 0;
-                label {
-                    text-align: center;
-                    color: white;
-                    font-size: 30px;
-                    width: 60px;
-                    text-align: center;
-                    background-color: crimson;
-                    border-radius: 5px;
-                }
+            justify-content: space-between;
+
+            label {
+                text-align: center;
+                color: white;
+                font-size: 26px;
+                width: 60px;
+                text-align: center;
+                background-color: skyblue;
+                border-radius: 5px;
+                height: 35px;
             }
         }
     }
+
     .dice {
         color: white;
         font-size: 100px;
+        line-height: 1;
+        width: 160px;
+        height: 200px;
+        border: 1px solid #36383c;
+        border-radius: 15px;
+        box-shadow: 5px 5px #36383c55;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
         &::after {
             display: block;
+            position: relative;
+            top: -12px;
         }
+
         &._1::after {
             content: '\2680';
         }
+
         &._2::after {
             content: '\2681';
         }
+
         &._3::after {
             content: '\2682';
         }
+
         &._4::after {
             content: '\2683';
         }
+
         &._5::after {
             content: '\2684';
         }
+
         &._6::after {
             content: '\2685';
         }
     }
+
     .cb-bin {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-end;
         flex-direction: column;
         justify-content: flex-start;
-        width: 30%;
         label.cb {
             font-size: 1.1em;
             line-height: 2;
@@ -113,30 +149,77 @@
         input {
             display: none;
         }
+
         input:checked+label.cb {
             color: white;
-            background-color: crimson;
+            background-color: skyblue;
             border-radius: 5px;
             padding: 7px;
         }
     }
+
+    .rotate {
+        transform: rotate(-90deg);
+        position: relative;
+        height: 30px;
+        width: 30px;
+    }
+
     .input-bin {
         width: 100%;
         &.range {
-            display: flex;
-            align-items: center;
+            position: relative;
+            left: -175px;
             input {
-                width: 100%;
-                border: none;
+                width: 200px;
+                appearance: none;
+                height: 6px;
+                border-radius: 3px;
+                background: skyblue;
+                cursor: pointer;
+                &::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    border: 5px solid white;
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                    background: skyblue;
+                    cursor: pointer;
+                }
             }
         }
+
         &.color {
             width: auto;
+
             input {
-                width: 60px;
-                height: 40px;
+                background-color: transparent;
+                appearance: none;
+                width: 80px;
+                height: 35px;
                 border: none;
-                border-radius: 5px;
+                cursor: pointer;
+                position: relative;
+                &::-webkit-color-swatch {
+                    width: 80px;
+                    height: 35px;
+                    border-radius: 5px;
+                    border: none;
+                }
+                &::after {
+                    content: 'color';
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    line-height: 1;
+                    top: 5px;
+                    left: 0;
+                    width: 80px;
+                    height: 35px;
+                    letter-spacing: 3px;
+                    font-size: 22px;
+                    }
             }
         }
     }
@@ -153,12 +236,13 @@ $butonBlue: skyblue;
 $butonGray: gray;
 $butonRed: crimson;
 $butonCoral: coral;
+
 button {
     display: inline-block;
     user-select: none;
     padding: 7px 30px;
-    margin: 20px 10px;
-    border-radius: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
     box-sizing: border-box;
     text-decoration: none;
     font-weight: 300;
@@ -171,30 +255,38 @@ button {
     background-color: $butonGray;
     color: white;
     cursor: pointer;
+
     &:hover {
         background-color: darken($butonGray, 20%);
     }
+
     &.blue {
         background-color: $butonBlue;
         color: white;
+
         &:hover {
             background-color: darken($butonBlue, 20%);
         }
     }
+
     &.red {
         background-color: $butonRed;
         color: white;
+
         &:hover {
             background-color: darken($butonRed, 20%);
         }
     }
+
     &.coral {
         background-color: $butonCoral;
         color: white;
+
         &:hover {
             background-color: darken($butonCoral, 20%);
         }
     }
+
     &.small {
         padding: 2px 3px;
         margin: 2px 3px;
