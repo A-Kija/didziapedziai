@@ -22,7 +22,7 @@ function Edit({ setEditData, setEditModal, editModal}) {
                 number: parseInt(number),
                 size: parseInt(size),
                 color,
-                id: editModal
+                id: editModal.id
             });
         setEditModal(null);
     }
@@ -48,8 +48,8 @@ function Edit({ setEditData, setEditModal, editModal}) {
                     <div className="cb-bin">
                         {
                             dicesCb.map(c => <span key={c.v}>
-                                <input type="checkbox" id={'r_' + c.v} checked={number === c.v} onChange={() => setNumber(c.v)} />
-                                <label className="cb" htmlFor={'r_' + c.v}>{c.t}</label>
+                                <input type="checkbox" id={'e_' + c.v} checked={number === c.v} onChange={() => setNumber(c.v)} />
+                                <label className="cb" htmlFor={'e_' + c.v}>{c.t}</label>
                             </span>)
                         }
                     </div>
