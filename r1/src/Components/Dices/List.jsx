@@ -1,7 +1,7 @@
 import Delete from "./Delete";
 import Edit from "./Edit";
 
-function List({ list, setDeleteModal, deleteModal, setDeleteData, editModal, setEditModal }) {
+function List({ list, setDeleteModal, deleteModal, setDeleteData, editModal, setEditModal, setEditData }) {
 
     if (null === list) {
         return (
@@ -31,7 +31,7 @@ function List({ list, setDeleteModal, deleteModal, setDeleteData, editModal, set
                             deleteModal && deleteModal.id === d.id ? <Delete dice={d} setDeleteModal={setDeleteModal} setDeleteData={setDeleteData} /> : null
                         }
                         {
-                            editModal && editModal.id === d.id ? <Edit setEditModal={setEditModal} editModal={editModal} /> : null
+                            editModal && editModal.id === d.id ? <Edit setEditModal={setEditModal} editModal={editModal} setEditData={setEditData} /> : null
                         }
                         
                         
