@@ -1,4 +1,6 @@
-function List({ list }) {
+import Delete from "./Delete";
+
+function List({ list, setDeleteModal, deleteModal, setDeleteData }) {
 
     if (null === list) {
         return (
@@ -22,6 +24,12 @@ function List({ list }) {
                             fontSize: d.size + 'px',
                             color: d.color
                         }}></div>
+                        <div className="delete-button" onClick={() => setDeleteModal(d)}></div>
+                        {
+                            deleteModal && deleteModal.id === d.id ? <Delete dice={d} setDeleteModal={setDeleteModal} setDeleteData={setDeleteData} /> : null
+                        }
+                        
+                        
                     </div>)
                 }
             </div>
