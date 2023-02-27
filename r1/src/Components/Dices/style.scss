@@ -56,6 +56,12 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+        &.edit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #282c34;
+        }
         .top {
             display: flex;
             .dice-bin {
@@ -232,6 +238,18 @@
     }
 }
 
+.edit-button {
+    &::after {
+        content: '\205D';
+        color: skyblue;
+        font-size: 26px;
+        line-height: 1;
+        display: block;
+        cursor: pointer;
+        padding: 0 0 0 20px;
+    }
+}
+
 .delete-modal {
     position: absolute;
     left: -65px;
@@ -266,7 +284,7 @@ $butonCoral: coral;
 button {
     display: inline-block;
     user-select: none;
-    padding: 7px 30px;
+    padding: 7px;
     margin: 5px 0;
     border-radius: 5px;
     box-sizing: border-box;

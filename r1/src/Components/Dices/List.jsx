@@ -1,6 +1,7 @@
 import Delete from "./Delete";
+import Edit from "./Edit";
 
-function List({ list, setDeleteModal, deleteModal, setDeleteData }) {
+function List({ list, setDeleteModal, deleteModal, setDeleteData, editModal, setEditModal }) {
 
     if (null === list) {
         return (
@@ -25,9 +26,14 @@ function List({ list, setDeleteModal, deleteModal, setDeleteData }) {
                             color: d.color
                         }}></div>
                         <div className="delete-button" onClick={() => setDeleteModal(d)}></div>
+                        <div className="edit-button" onClick={() => setEditModal(d)}></div>
                         {
                             deleteModal && deleteModal.id === d.id ? <Delete dice={d} setDeleteModal={setDeleteModal} setDeleteData={setDeleteData} /> : null
                         }
+                        {
+                            editModal && editModal.id === d.id ? <Edit setEditModal={setEditModal} editModal={editModal} /> : null
+                        }
+                        
                         
                         
                     </div>)
