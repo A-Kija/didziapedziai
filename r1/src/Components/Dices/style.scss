@@ -276,6 +276,31 @@
     }
 }
 
+.messages {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    display: flex;
+    flex-direction: column;
+    .message {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 200px;
+        border-radius: 5px;
+        margin: 10px;
+        color: white;
+        background-color: gray;
+        padding: 10px 30px;
+        &.ok {
+            background-color: darkseagreen;
+        }
+        &.error {
+            background-color: deeppink;
+        }
+    }
+}
+
 // ---------------------BUTTON
 $butonBlue: skyblue;
 $butonGray: gray;
