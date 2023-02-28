@@ -8,6 +8,8 @@ const menu = `
 <a href="/fox">fox</a>
 `;
 
+
+// SSR
 app.get('/', (req, res) => {
     res.send(`
     ${menu}
@@ -28,6 +30,22 @@ app.get('/fox', (req, res) => {
     <h1>Hello FOX!</h1>
     `);
 });
+
+// API
+app.get('/api/home', (req, res) => {
+    res.json({ title: 'Hello Forest!' });
+});
+
+app.get('/api/racoon', (req, res) => {
+    res.json({ title: 'Hello RACOON!' });
+});
+
+app.get('/api/fox', (req, res) => {
+    res.json({ title: 'Hello FOX!' });
+});
+
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

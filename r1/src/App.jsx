@@ -1,97 +1,51 @@
-import { useEffect, useState } from 'react';
-import Create from './Components/Dices/Create';
-import List from './Components/Dices/List';
-import { create, destroy, edit, read } from './Components/Dices/localStorage';
-import Messages from './Components/Dices/Messages';
-import './Components/Dices/style.scss';
-import {v4 as uuidv4} from 'uuid';
-
-const KEY = 'FancyDices';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import './App.scss';
+import Fox from './Components/016/Fox';
+import Home from './Components/016/Home';
+import Menu from './Components/016/Menu';
+import Racoon from './Components/016/Racoon';
+import axios from 'axios';
 
 function App() {
 
-    const [lastUpdate, setLastUpdate] = useState(Date.now());
-    const [list, setList] = useState(null);
-    const [createData, setCreateData] = useState(null);
-    const [deleteModal, setDeleteModal] = useState(null);
-    const [deleteData, setDeleteData] = useState(null);
-    const [editModal, setEditModal] = useState(null);
-    const [editData, setEditData] = useState(null);
-    const [messages, setMessages] = useState(null);
+    const [page, setPage] = useState('home');
+
+    const [content, setContent] = useState(null);
+
 
     useEffect(() => {
-        msg('Look at this beautiful DICES', '');
-    }, []);
+        axios.get('http://localhost:3003/api/' + page)
+        .then(res => {
+            setContent(res.data);
+        });
+    }, [page]);
 
-    useEffect(() => {
-
-        // setTimeout(() => setList(read(KEY)), 1000);
-
-        setList(read(KEY));
-        // msg('Look at this beautiful DICES', '');
-
-    }, [lastUpdate]);
-
-    
-    useEffect(() => {
-        if (null === createData) {
-            return;
-        }
-        create(KEY, createData);
-        setLastUpdate(Date.now());
-        msg('Ok, there is new DICE', 'ok');
-    }, [createData]);
-
-    useEffect(() => {
-        if (null === deleteData) {
-            return;
-        }
-        destroy(KEY, deleteData.id);
-        setLastUpdate(Date.now());
-        msg('The DICE is gone now', 'error');
-    }, [deleteData]);
-
-    useEffect(() => {
-        if (null === editData) {
-            return;
-        }
-        edit(KEY, editData, editData.id);
-        setLastUpdate(Date.now());
-        msg('The DICE is different now', 'ok');
-    }, [editData]);
-
-    const msg = (text, type) => {
-        const uuid = uuidv4();
-        setMessages(m => [...m ?? [], {text, type, id: uuid}]);
-        setTimeout(() => {
-            setMessages(m => m.filter(m => uuid !== m.id));
-        }, 5000);
-    } 
 
     return (
-        <>
-        <div className="dices">
-            <div className="content">
-                <div className="left">
-                    <Create setCreateData={setCreateData}/>
-                </div>
-                <div className="right">
-                    <List 
-                    list={list}
-                    setDeleteModal={setDeleteModal}
-                    deleteModal={deleteModal}
-                    setDeleteData={setDeleteData}
-                    editModal={editModal}
-                    setEditModal={setEditModal}
-                    setEditData={setEditData}
-                     />
-                </div>
-            </div>
+        <div className="App">
+            <header className="App-header">
+
+                <Menu setPage={setPage} />
+
+                {
+                    page === 'home' && null !== content ? <Home title={content.title} /> : null
+                }
+
+                {
+                    page === 'fox' && null !== content ? <Fox title={content.title} /> : null
+                }
+
+                {
+                    page === 'racoon' && null !== content ? <Racoon title={content.title} /> : null
+                }
+
+                {
+                    null == content ? <h1>LOADING...</h1> : null
+                }
+
+            </header>
         </div>
-        {
-            messages && <Messages messages={messages} />
-        }
-        </>
     );
 
 }
