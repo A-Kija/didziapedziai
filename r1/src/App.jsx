@@ -1,51 +1,70 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import './App.scss';
-import Fox from './Components/016/Fox';
-import Home from './Components/016/Home';
-import Menu from './Components/016/Menu';
-import Racoon from './Components/016/Racoon';
+import { useEffect, useState } from 'react';
+import Create from './Components/Dices-Server/Create';
+import List from './Components/Dices-Server/List';
+import './Components/Dices-Server/style.scss';
 import axios from 'axios';
+
+const URL = 'http://localhost:3003/dices';
 
 function App() {
 
-    const [page, setPage] = useState('home');
-
-    const [content, setContent] = useState(null);
+    const [lastUpdate, setLastUpdate] = useState(Date.now());
+    const [list, setList] = useState(null);
+    const [createData, setCreateData] = useState(null);
+    const [deleteModal, setDeleteModal] = useState(null);
+    const [deleteData, setDeleteData] = useState(null);
+    const [editModal, setEditModal] = useState(null);
+    const [editData, setEditData] = useState(null);
+    const [messages, setMessages] = useState(null);
 
 
     useEffect(() => {
-        axios.get('http://localhost:3003/api/' + page)
+        axios.get(URL)
         .then(res => {
-            setContent(res.data);
+            setList(res.data);
         });
-    }, [page]);
 
+    }, []);
+
+
+
+    useEffect(() => {
+        if (null === createData) {
+            return;
+        }
+        axios.post(URL, createData)
+        .then(res => {
+            console.log(res.data);
+        });
+
+    }, [createData])
+
+    
 
     return (
-        <div className="App">
-            <header className="App-header">
-
-                <Menu setPage={setPage} />
-
-                {
-                    page === 'home' && null !== content ? <Home color={content.color} title={content.title} /> : null
-                }
-
-                {
-                    page === 'fox' && null !== content ? <Fox color={content.color} title={content.title} /> : null
-                }
-
-                {
-                    page === 'racoon' && null !== content ? <Racoon color={content.color} title={content.title} /> : null
-                }
-
-                {
-                    null == content ? <h1>LOADING...</h1> : null
-                }
-
-            </header>
+        <>
+        <div className="dices">
+            <div className="content">
+                <div className="left">
+                    <Create setCreateData={setCreateData}/>
+                </div>
+                <div className="right">
+                    <List
+                    list={list}
+                    setDeleteModal={setDeleteModal}
+                    deleteModal={deleteModal}
+                    setDeleteData={setDeleteData}
+                    editModal={editModal}
+                    setEditModal={setEditModal}
+                    setEditData={setEditData}
+                     />
+                </div>
+            </div>
         </div>
+        {
+            // messages && <Messages messages={messages} />
+        }
+        </>
     );
 
 }
