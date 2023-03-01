@@ -3,6 +3,7 @@ import Create from './Components/Dices-Server/Create';
 import List from './Components/Dices-Server/List';
 import './Components/Dices-Server/style.scss';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const URL = 'http://localhost:3003/dices';
 
@@ -20,11 +21,10 @@ function App() {
 
     useEffect(() => {
         axios.get(URL)
-        .then(res => {
-            setList(res.data);
-        });
-
-    }, []);
+            .then(res => {
+                setList(res.data);
+            });
+    }, [lastUpdate]);
 
 
 
@@ -32,38 +32,57 @@ function App() {
         if (null === createData) {
             return;
         }
-        axios.post(URL, createData)
-        .then(res => {
-            console.log(res.data);
-        });
+        // pazadas
+        const promiseId = uuidv4();
+        setList(d => [...d, { ...createData, promiseId }]);
 
-    }, [createData])
+        // serveris
+        axios.post(URL, { ...createData, promiseId })
+            .then(res => {
+                setList(d => d.map(d => res.data.promiseId === d.promiseId ? { ...d, id: res.data.id, promiseId: null } : { ...d }));
+                console.log(res.data);
+            });
 
-    
+    }, [createData]);
+
+
+    useEffect(() => {
+        if (null === deleteData) {
+            return;
+        }
+        axios.delete(URL + '/' + deleteData.id)
+            .then(res => {
+                console.log(res.data);
+                setLastUpdate(Date.now());
+            });
+
+    }, [deleteData]);
+
+
 
     return (
         <>
-        <div className="dices">
-            <div className="content">
-                <div className="left">
-                    <Create setCreateData={setCreateData}/>
-                </div>
-                <div className="right">
-                    <List
-                    list={list}
-                    setDeleteModal={setDeleteModal}
-                    deleteModal={deleteModal}
-                    setDeleteData={setDeleteData}
-                    editModal={editModal}
-                    setEditModal={setEditModal}
-                    setEditData={setEditData}
-                     />
+            <div className="dices">
+                <div className="content">
+                    <div className="left">
+                        <Create setCreateData={setCreateData} />
+                    </div>
+                    <div className="right">
+                        <List
+                            list={list}
+                            setDeleteModal={setDeleteModal}
+                            deleteModal={deleteModal}
+                            setDeleteData={setDeleteData}
+                            editModal={editModal}
+                            setEditModal={setEditModal}
+                            setEditData={setEditData}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-        {
-            // messages && <Messages messages={messages} />
-        }
+            {
+                // messages && <Messages messages={messages} />
+            }
         </>
     );
 

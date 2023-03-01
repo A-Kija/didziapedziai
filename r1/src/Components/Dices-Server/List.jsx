@@ -21,13 +21,22 @@ function List({ list, setDeleteModal, deleteModal, setDeleteData, editModal, set
             </div>
             <div className="list">
                 {
-                    list.map(d => <div key={d.id} className="item">
+                    list.map(d => <div key={d.id ?? d.promiseId} className="item">
                         <div className={'dice _' + d.number} style={{
                             fontSize: d.size + 'px',
                             color: d.color
                         }}></div>
-                        <div className="delete-button" onClick={() => setDeleteModal(d)}></div>
-                        <div className="edit-button" onClick={() => setEditModal(d)}></div>
+                        {
+                            !d.promiseId 
+                            ?
+                            <>
+                            <div className="delete-button" onClick={() => setDeleteModal(d)}></div>
+                            <div className="edit-button" onClick={() => setEditModal(d)}></div>
+                            </>
+                            :
+                            null
+                        }
+
                         {
                             deleteModal && deleteModal.id === d.id ? <Delete dice={d} setDeleteModal={setDeleteModal} setDeleteData={setDeleteData} /> : null
                         }
