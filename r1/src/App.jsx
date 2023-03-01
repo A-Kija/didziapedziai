@@ -29,15 +29,15 @@ function App() {
                 <Menu setPage={setPage} />
 
                 {
-                    page === 'home' && null !== content ? <Home title={content.title} /> : null
+                    page === 'home' && null !== content ? <Home color={content.color} title={content.title} /> : null
                 }
 
                 {
-                    page === 'fox' && null !== content ? <Fox title={content.title} /> : null
+                    page === 'fox' && null !== content ? <Fox color={content.color} title={content.title} /> : null
                 }
 
                 {
-                    page === 'racoon' && null !== content ? <Racoon title={content.title} /> : null
+                    page === 'racoon' && null !== content ? <Racoon color={content.color} title={content.title} /> : null
                 }
 
                 {

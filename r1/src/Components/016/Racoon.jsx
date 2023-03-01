@@ -1,7 +1,7 @@
-function Racoon({title}) {
+function Racoon({title, color}) {
     return (
         <>
-            <h1>{title}</h1>
+            <h1 style={{color}}>{title}</h1>
             <h3>Nice Trash Bin page</h3>
         </>
     )
