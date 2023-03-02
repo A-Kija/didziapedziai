@@ -283,11 +283,11 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px 20px 20px;
     border: 5px dotted orange;
     position: relative;
     min-height: 200px;
-    min-width: 200px;
+    min-width: 400px;
     .title {
         position: absolute;
         background-color: orange;
