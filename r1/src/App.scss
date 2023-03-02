@@ -157,6 +157,10 @@ button {
         color: white;
         background-color: darkgray;
         flex-wrap: wrap;
+        &.sm {
+            height: 70px;
+            width: 70px;
+        }
         &.spin {
             animation: App-logo-spin infinite 5s linear;
         }
@@ -271,5 +275,24 @@ button {
     }
     button {
         max-width: 100px;
+    }
+}
+
+.box-area {
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 5px dotted orange;
+    position: relative;
+    min-height: 200px;
+    min-width: 200px;
+    .title {
+        position: absolute;
+        background-color: orange;
+        padding: 10px;
+        top: -20px;
+        left: 50px;
     }
 }
