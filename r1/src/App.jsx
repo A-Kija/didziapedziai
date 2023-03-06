@@ -1,36 +1,113 @@
-import { useState } from 'react';
-import './App.scss';
-import { useAdd23 } from './Components/019/useAdd23';
-import { useLocalStorage } from './Components/019/useLocalStorage';
-import { useSimpleState } from './Components/019/useSimpleState';
+import { useEffect, useState } from 'react';
+import Create from './Components/Dices-Server/Create';
+import List from './Components/Dices-Server/List';
+import './Components/Dices-Server/style.scss';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import Messages from './Components/Dices/Messages';
 
+const URL = 'http://localhost:3003/dices';
 
 function App() {
 
-    const [count1, setCount1] = useState(1);
-    const [count2, setCount2] = useSimpleState(10);
-    const [count3, setCount3] = useLocalStorage(24, 'couter123');
-    const [count4, setCount4] = useAdd23(42);
+    const [lastUpdate, setLastUpdate] = useState(Date.now());
+    const [list, setList] = useState(null);
+    const [createData, setCreateData] = useState(null);
+    const [deleteModal, setDeleteModal] = useState(null);
+    const [deleteData, setDeleteData] = useState(null);
+    const [editModal, setEditModal] = useState(null);
+    const [editData, setEditData] = useState(null);
+    const [messages, setMessages] = useState(null);
+
+
+    useEffect(() => {
+        axios.get(URL)
+            .then(res => {
+                setList(res.data);
+            });
+    }, [lastUpdate]);
+
+
+
+    useEffect(() => {
+        if (null === createData) {
+            return;
+        }
+        // pazadas
+        const promiseId = uuidv4();
+        setList(d => [...d, { ...createData, promiseId }]);
+
+        // serveris
+        axios.post(URL, { ...createData, promiseId })
+            .then(res => {
+                setList(d => d.map(d => res.data.promiseId === d.promiseId ? { ...d, id: res.data.id, promiseId: null } : { ...d }));
+                msg(res.data.message.text, res.data.message.type);
+            });
+
+    }, [createData]);
+
+
+    useEffect(() => {
+        if (null === deleteData) {
+            return;
+        }
+        axios.delete(URL + '/' + deleteData.id)
+            .then(res => {
+                console.log(res.data);
+                setLastUpdate(Date.now());
+                msg(res.data.message.text, res.data.message.type);
+            });
+
+    }, [deleteData]);
+
+
+    useEffect(() => {
+        if (null === editData) {
+            return;
+        }
+        axios.put(URL + '/' + editData.id, editData)
+            .then(res => {
+                console.log(res.data);
+                setLastUpdate(Date.now());
+                msg(res.data.message.text, res.data.message.type);
+            });
+
+    }, [editData]);
+
+    const msg = (text, type) => {
+        const uuid = uuidv4();
+        setMessages(m => [...m ?? [], {text, type, id: uuid}]);
+        setTimeout(() => {
+            setMessages(m => m.filter(m => uuid !== m.id));
+        }, 5000);
+    } 
+
 
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>
-                    <span style={{ color: 'crimson', padding: '10px' }}>{count1}</span>
-                    <span style={{ color: 'skyblue', padding: '10px' }}>{count2}</span>
-                    <span style={{ color: 'coral', padding: '10px' }}>{count3}</span>
-                    <span style={{ color: 'crimson', padding: '10px' }}>{count4}</span>
-                </h1>
-
-                <div className="sq-bin">
-                    <button className="red" onClick={() => setCount1(c => c + 1)}>+1</button>
-                    <button className="blue" onClick={() => setCount2(c => c + 11)}>+11</button>
-                    <button className="coral" onClick={() => setCount3(c => c - 7)}>-7</button>
-                    <button className="red" onClick={() => setCount4(c => !c)}>+23</button>
+        <>
+            <div className="dices">
+                <div className="content">
+                    <div className="left">
+                        <Create setCreateData={setCreateData} />
+                    </div>
+                    <div className="right">
+                        <List
+                            list={list}
+                            setDeleteModal={setDeleteModal}
+                            deleteModal={deleteModal}
+                            setDeleteData={setDeleteData}
+                            editModal={editModal}
+                            setEditModal={setEditModal}
+                            setEditData={setEditData}
+                        />
+                    </div>
                 </div>
-            </header>
-        </div>
+            </div>
+            {
+                messages && <Messages messages={messages} />
+            }
+        </>
     );
 
 }
