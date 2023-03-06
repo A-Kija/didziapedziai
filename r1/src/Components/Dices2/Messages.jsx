@@ -1,4 +1,9 @@
-function Messages({messages}) {
+import { useContext } from 'react';
+import { GlobalContext } from './GlobalContext';
+
+function Messages() {
+
+    const {messages} = useContext(GlobalContext);
 
     return (
         <div className="messages">

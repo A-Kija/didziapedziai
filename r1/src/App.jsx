@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import Create from './Components/Dices-Server/Create';
-import List from './Components/Dices-Server/List';
-import './Components/Dices-Server/style.scss';
+import Create from './Components/Dices2/Create';
+import List from './Components/Dices2/List';
+import './Components/Dices2/style.scss';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import Messages from './Components/Dices/Messages';
+
+import Messages from './Components/Dices2/Messages';
+import { GlobalContextProvider } from './Components/Dices2/GlobalContext';
 
 const URL = 'http://localhost:3003/dices';
+
 
 function App() {
 
@@ -14,11 +17,11 @@ function App() {
     const [list, setList] = useState(null);
     const [createData, setCreateData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(null);
-    const [deleteData, setDeleteData] = useState(null);
+    
     const [editModal, setEditModal] = useState(null);
     const [editData, setEditData] = useState(null);
-    const [messages, setMessages] = useState(null);
 
+  
 
     useEffect(() => {
         axios.get(URL)
@@ -41,24 +44,13 @@ function App() {
         axios.post(URL, { ...createData, promiseId })
             .then(res => {
                 setList(d => d.map(d => res.data.promiseId === d.promiseId ? { ...d, id: res.data.id, promiseId: null } : { ...d }));
-                msg(res.data.message.text, res.data.message.type);
+                // addMessage({text: res.data.message.text, type: res.data.message.type});
             });
 
     }, [createData]);
 
 
-    useEffect(() => {
-        if (null === deleteData) {
-            return;
-        }
-        axios.delete(URL + '/' + deleteData.id)
-            .then(res => {
-                console.log(res.data);
-                setLastUpdate(Date.now());
-                msg(res.data.message.text, res.data.message.type);
-            });
 
-    }, [deleteData]);
 
 
     useEffect(() => {
@@ -69,23 +61,15 @@ function App() {
             .then(res => {
                 console.log(res.data);
                 setLastUpdate(Date.now());
-                msg(res.data.message.text, res.data.message.type);
+                // addMessage({text: res.data.message.text, type: res.data.message.type});
             });
 
     }, [editData]);
 
-    const msg = (text, type) => {
-        const uuid = uuidv4();
-        setMessages(m => [...m ?? [], {text, type, id: uuid}]);
-        setTimeout(() => {
-            setMessages(m => m.filter(m => uuid !== m.id));
-        }, 5000);
-    } 
-
 
 
     return (
-        <>
+        <GlobalContextProvider>
             <div className="dices">
                 <div className="content">
                     <div className="left">
@@ -96,7 +80,6 @@ function App() {
                             list={list}
                             setDeleteModal={setDeleteModal}
                             deleteModal={deleteModal}
-                            setDeleteData={setDeleteData}
                             editModal={editModal}
                             setEditModal={setEditModal}
                             setEditData={setEditData}
@@ -105,9 +88,9 @@ function App() {
                 </div>
             </div>
             {
-                messages && <Messages messages={messages} />
+                <Messages/>
             }
-        </>
+        </GlobalContextProvider>
     );
 
 }

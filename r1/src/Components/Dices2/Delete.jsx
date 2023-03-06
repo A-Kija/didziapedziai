@@ -1,4 +1,11 @@
-function Delete({setDeleteModal, setDeleteData, dice}) {
+import { useContext } from 'react';
+import { GlobalContext } from './GlobalContext';
+
+function Delete({setDeleteModal, dice}) {
+
+    const { setDeleteData } = useContext(GlobalContext);
+
+    
 
     return (
         <div className="delete-modal">
