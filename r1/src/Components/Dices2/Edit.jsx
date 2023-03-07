@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import mutateColor from '../../Functions/mutateColor'
+import { GlobalContext } from './GlobalContext';
 
 const dicesCb = [
     { v: 1, t: 'One' },
@@ -10,11 +11,14 @@ const dicesCb = [
     { v: 6, t: 'Six' }
 ];
 
-function Edit({ setEditData, setEditModal, editModal}) {
+function Edit() {
+
+    const { setEditData, setEditModal, editModal} = useContext(GlobalContext);
 
     const [number, setNumber] = useState(editModal.number);
     const [size, setSize] = useState(editModal.size);
     const [color, setColor] = useState(editModal.color);
+   
 
     const edit = _ => {
         setEditData(
