@@ -11,7 +11,6 @@ export const useRead = _ => {
     useEffect(() => {
         axios.get(URL)
             .then(res => setList(res.data));
-
     }, [update]);
 
 
