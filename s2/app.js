@@ -36,7 +36,7 @@ app.post('/numbers', (req, res) => {
     allData = JSON.stringify(allData);
     fs.writeFileSync('./data/numbers.json', allData, 'utf8');
     res.json({
-        message: { text: 'New number is saved', 'type': 'ok' }
+        message: { text: 'New number is saved', 'type': 'success' }
     });
 });
 
@@ -47,7 +47,7 @@ app.delete('/numbers/:id', (req, res) => {
     let deletedData = allData.filter(d => req.params.id !== d.id);
     deletedData = JSON.stringify(deletedData);
     fs.writeFileSync('./data/numbers.json', deletedData, 'utf8');
-    res.json({ message: { text: 'The Number was deleted', 'type': 'error' } });
+    res.json({ message: { text: 'The Number was deleted', 'type': 'danger' } });
 });
 
 
@@ -65,7 +65,7 @@ app.put('/numbers/:action/:id', (req, res) => {
     editedData = JSON.stringify(editedData);
     fs.writeFileSync('./data/numbers.json', editedData, 'utf8');
 
-    res.json({ message: { text: 'Number was edited', 'type': '' } });
+    res.json({ message: { text: 'Number was edited', 'type': 'info' } });
 });
 
 app.listen(port, () => {
