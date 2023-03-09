@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const port = 3003;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
+app.use(cookieParser());
 
 app.use(
     express.urlencoded({
@@ -14,6 +20,19 @@ app.use(
     })
 );
 app.use(express.json());
+
+
+
+app.post('/cookie', (req, res) => {
+
+    if (req.body.delete) {
+        res.cookie('cookieMonster', '', { maxAge: -3600 });
+    } else {
+        res.cookie('cookieMonster', req.body.text, { maxAge: 3600 });
+    }
+
+    res.json({ msg: 'OK' });
+});
 
 
 
