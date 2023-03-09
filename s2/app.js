@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const md5 = require('md5');
 
 const app = express();
 const port = 3003;
@@ -34,6 +35,49 @@ app.post('/cookie', (req, res) => {
     res.json({ msg: 'OK' });
 });
 
+
+app.post('/login', (req, res) => {
+    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
+    const name = req.body.name;
+    const psw = md5(req.body.psw);
+
+    const user = users.find(u => u.name === name && u.psw === psw);
+    if (user) {
+        const sessionId = md5(uuidv4()); // Turi buti normali kroptografija!!!
+        user.session = sessionId;
+
+        fs.writeFileSync('./data/users.json', JSON.stringify(users), 'utf8');
+        res.cookie('magicNumberSession', sessionId);
+        res.json({
+            status: 'ok',
+            name: user.name
+        });
+    } else {
+        res.json({
+            status: 'error',
+        });
+    }
+});
+
+app.get('/login', (req, res) => {
+    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
+    const user = req.cookies.magicNumberSession ?
+        users.find(u => u.session === req.cookies.magicNumberSession) :
+        null;
+
+    if (user) {
+        res.json({
+            status: 'ok',
+            name: user.name
+        });
+    } else {
+        res.json({
+            status: 'error',
+        });
+    }
+
+
+});
 
 
 // API

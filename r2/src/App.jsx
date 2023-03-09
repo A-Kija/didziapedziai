@@ -8,6 +8,7 @@ import ModalAdd from './Components/ModalAdd';
 import ModalRem from './Components/ModalRem';
 import Messages from './Components/Messages';
 import CookieMonster from './Components/CookieMonster';
+import Login from './Components/Login';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col-5">
+            <Login />
             <Create />
             <CookieMonster />
           </div>
