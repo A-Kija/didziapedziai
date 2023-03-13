@@ -9,3 +9,16 @@
     right: 50px;
     max-width: 300px;
 }
+
+.navbar.navbar-expand-lg.navbar-light.bg-light .nav-link {
+    cursor: pointer;
+    &.active {
+        color: skyblue;
+    }
+}
+
+.nav-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

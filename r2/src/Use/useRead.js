@@ -6,9 +6,12 @@ const URL = 'http://localhost:3003/numbers';
 export const useRead = _ => {
 
     const [list, setList] = useState(null);
-    const [update, setUpdate] = useState(Date.now());
+    const [update, setUpdate] = useState(null);
 
     useEffect(() => {
+        if (null === update) {
+            return;
+        }
         axios.get(URL)
             .then(res => setList(res.data));
     }, [update]);
