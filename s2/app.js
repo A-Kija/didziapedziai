@@ -138,6 +138,31 @@ app.put('/numbers/:action/:id', (req, res) => {
     res.json({ message: { text: 'Number was edited', 'type': 'info' } });
 });
 
+
+// users
+app.get('/users', (req, res) => {
+    let allData = fs.readFileSync('./data/users.json', 'utf8');
+    allData = JSON.parse(allData);
+    res.json(allData);
+});
+
+app.post('/register', (req, res) => {
+    let allData = fs.readFileSync('./data/users.json', 'utf8');
+    allData = JSON.parse(allData);
+    const id = uuidv4();
+    const data = {
+        name: req.body.name,
+        psw: md5(req.body.psw),
+        id
+    };
+    allData.push(data);
+    allData = JSON.stringify(allData);
+    fs.writeFileSync('./data/users.json', allData, 'utf8');
+    res.json({
+        status: 'ok'
+    });
+});
+
 app.listen(port, () => {
     console.log(`LN is on port number: ${port}`);
 });

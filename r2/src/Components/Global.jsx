@@ -4,6 +4,7 @@ import { useModal } from "../Use/useModal";
 import { useRead } from "../Use/useRead";
 import { useWrite } from "../Use/useWrite";
 import axios from 'axios';
+import { useReadUsers } from "../Use/useReadUsers";
 
 export const Global = createContext();
 
@@ -13,6 +14,8 @@ export const GlobalProvider = ({children}) => {
     const [list, setUpdate] = useRead();
     const [deleteModal, setDeleteModal, addModal, setAddModal, remModal, setRemModal] = useModal();
     const [messages, setMessage] = useMessages([]);
+
+    const [users, setUpdateUsers] = useReadUsers();
 
     const [route, setRoute] = useState('numbers');
     const [logged, setLogged] = useState(null);
@@ -27,6 +30,19 @@ export const GlobalProvider = ({children}) => {
             setMessage({text: response.message.text, type: response.message.type});
         }
     }, [response, setMessage, setUpdate]);
+
+    useEffect(() => {
+
+        if (route === 'users') {
+            setUpdateUsers(Date.now());
+        } else if (route === 'numbers') {
+            setUpdate(Date.now());
+        }
+
+
+
+
+    }, [route])
 
 
     const logOut = _ => {
@@ -51,7 +67,9 @@ export const GlobalProvider = ({children}) => {
             // route
             route, setRoute,
             // auth
-            authName, setAuthName, logOut, logged, setLogged
+            authName, setAuthName, logOut, logged, setLogged,
+            //users
+            users, setUpdateUsers
         }}>
             {children}
         </Global.Provider>

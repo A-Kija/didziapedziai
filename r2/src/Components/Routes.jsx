@@ -3,6 +3,8 @@ import Auth from "./Auth";
 import { Global } from "./Global";
 import Login from "./Login";
 import LuckyNumbers from "./LuckyNumbers";
+import Register from "./Register";
+import Users from "./Users";
 
 function Routes() {
 
@@ -10,8 +12,10 @@ function Routes() {
 
 
     switch(route) {
-        case 'numbers': return <Auth><LuckyNumbers /></Auth> 
+        case 'numbers': return <LuckyNumbers />
+        case 'users': return <Auth><Users /></Auth> 
         case 'login': return <Login />
+        case 'register': return <Register />
         default: return null
     }
 
