@@ -12,6 +12,11 @@ function Nav() {
                     <div className="navbar-brand">Lucky numbers</div>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav">
+                        <li className="nav-item">
+                                <span onClick={_ => setRoute('home')} className={
+                                    'nav-link' + (route === 'home' ? ' active' : '')
+                                }>HOME</span>
+                            </li>
                             <li className="nav-item">
                                 <span onClick={_ => setRoute('numbers')} className={
                                     'nav-link' + (route === 'numbers' ? ' active' : '')

@@ -15,7 +15,9 @@ export const useWrite = _ => {
             return;
         }
         axios.put(URL + '/' + edit.action + '/' + edit.id, { number: edit.number })
-            .then(res => setResponse(res.data));
+            .then(res => {
+                setResponse(res.data)
+            });
 
     }, [edit]);
 

@@ -24,8 +24,6 @@ function Auth({ children }) {
     }, []);
 
 
-
-
     if (null === logged) {
         return <Loader />
     }

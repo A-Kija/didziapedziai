@@ -5,6 +5,7 @@ import { useRead } from "../Use/useRead";
 import { useWrite } from "../Use/useWrite";
 import axios from 'axios';
 import { useReadUsers } from "../Use/useReadUsers";
+import { useWriteUsers } from "../Use/useWriteUsers";
 
 export const Global = createContext();
 
@@ -16,8 +17,9 @@ export const GlobalProvider = ({children}) => {
     const [messages, setMessage] = useMessages([]);
 
     const [users, setUpdateUsers] = useReadUsers();
+    const [userResponse, setUserDelete] = useWriteUsers();
 
-    const [route, setRoute] = useState('numbers');
+    const [route, setRoute] = useState('home');
     const [logged, setLogged] = useState(null);
     const [authName, setAuthName] = useState(null);
 
@@ -25,11 +27,23 @@ export const GlobalProvider = ({children}) => {
 
     useEffect(() => {
         setUpdate(Date.now());
+        console.log(response);
         if (null !== response) {
-
             setMessage({text: response.message.text, type: response.message.type});
         }
     }, [response, setMessage, setUpdate]);
+
+
+    useEffect(() => {
+        setUpdateUsers(Date.now());
+        if (null !== userResponse && userResponse.code) {
+            setMessage({text: userResponse.message ? userResponse.message : userResponse.code, type: 'danger'});
+        }
+        else if (null !== userResponse) {
+            setMessage({text: userResponse.message.text, type: userResponse.message.type});
+        }
+    }, [userResponse, setMessage, setUpdate]);
+
 
     useEffect(() => {
 
@@ -69,7 +83,8 @@ export const GlobalProvider = ({children}) => {
             // auth
             authName, setAuthName, logOut, logged, setLogged,
             //users
-            users, setUpdateUsers
+            users, setUpdateUsers,
+            userResponse, setUserDelete
         }}>
             {children}
         </Global.Provider>

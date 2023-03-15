@@ -1,6 +1,5 @@
 import Create from "./Create";
 import List from "./List";
-import Messages from "./Messages";
 import ModalAdd from "./ModalAdd";
 import ModalDelete from "./ModalDelete";
 import ModalRem from "./ModalRem";
@@ -22,7 +21,6 @@ function LuckyNumbers() {
             <ModalDelete />
             <ModalAdd />
             <ModalRem />
-            <Messages />
         </>
     )
 }

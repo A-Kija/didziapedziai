@@ -22,3 +22,15 @@
     justify-content: space-between;
     width: 100%;
 }
+
+.home {
+    width: 100vw;
+    height: calc(100vh - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 300px;
+    letter-spacing: 50px;
+    font-weight: 100;
+    color: skyblue;
+}
