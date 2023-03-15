@@ -47,6 +47,8 @@ export const GlobalProvider = ({children}) => {
 
     useEffect(() => {
 
+        setLogged(null);
+
         if (route === 'users') {
             setUpdateUsers(Date.now());
         } else if (route === 'numbers') {

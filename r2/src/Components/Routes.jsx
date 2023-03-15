@@ -13,9 +13,9 @@ function Routes() {
 
 
     switch(route) {
-        case 'home': return <Auth role={[]}><Home /></Auth>
-        case 'numbers': return <Auth role={['admin', 'manager']}><LuckyNumbers /></Auth>
-        case 'users': return <Auth role={['admin']}><Users /></Auth> 
+        case 'home': return <Auth roles={[]}><Home /></Auth>
+        case 'numbers': return <Auth roles={['admin', 'manager']}><LuckyNumbers /></Auth>
+        case 'users': return <Auth roles={['admin']}><Users /></Auth> 
 
         case 'login': return <Login />
         case 'register': return <Register />

@@ -22,7 +22,27 @@ app.use(
 );
 app.use(express.json());
 
+const doAuth = function(req, res, next) {
 
+    if (req.url.indexOf('/numbers') === 0) {
+        const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
+        const user = req.cookies.magicNumberSession ?
+            users.find(u => u.session === req.cookies.magicNumberSession) :
+            null;
+        console.log(req.cookies)
+        if (user) {
+            next();
+        } else {
+            res.status(401).json({});
+        }
+    } else {
+        next();
+    }
+
+
+}
+
+app.use(doAuth);
 
 app.post('/cookie', (req, res) => {
 
@@ -152,6 +172,7 @@ app.post('/register', (req, res) => {
     allData = JSON.parse(allData);
     const id = uuidv4();
     const data = {
+        role: 'manager',
         name: req.body.name,
         psw: md5(req.body.psw),
         id
@@ -167,10 +188,15 @@ app.post('/register', (req, res) => {
 app.delete('/users/:id', (req, res) => {
     let allData = fs.readFileSync('./data/users.json', 'utf8');
     allData = JSON.parse(allData);
-    let deletedData = allData.filter(d => req.params.id !== d.id);
-    deletedData = JSON.stringify(deletedData);
-    fs.writeFileSync('./data/users.json', deletedData, 'utf8');
-    res.json({ message: { text: 'The User was deleted', 'type': 'info' } });
+    const userToDelete = allData.find(d => req.params.id === d.id);
+    if (userToDelete.role === 'admin') {
+        res.status(400).json({});
+    } else {
+        let deletedData = allData.filter(d => req.params.id !== d.id);
+        deletedData = JSON.stringify(deletedData);
+        fs.writeFileSync('./data/users.json', deletedData, 'utf8');
+        res.json({ message: { text: 'The User was deleted', 'type': 'info' } });
+    }
 });
 
 app.listen(port, () => {

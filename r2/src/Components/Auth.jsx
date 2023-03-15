@@ -3,10 +3,11 @@ import axios from 'axios';
 import Loader from "./Loader";
 import Login from "./Login";
 import { Global } from './Global';
+import RoleError from './RoleError';
 
-function Auth({ children }) {
+function Auth({ children, roles }) {
 
-    const { setAuthName, logged, setLogged } = useContext(Global);
+    const { setAuthName, logged, setLogged, route } = useContext(Global);
 
 
     useEffect(() => {
@@ -14,30 +15,48 @@ function Auth({ children }) {
             .then(res => {
                 console.log(res.data);
                 if (res.data.status === 'ok') {
-                    setLogged(true);
                     setAuthName(res.data.name);
+                    if (roles.length) {
+                        if (roles.includes(res.data.role)) {
+                            setLogged(1);
+                        } else {
+                            setLogged(3);
+                        }
+
+                    } else {
+                        setLogged(1);
+                    }
                 } else {
-                    setLogged(false);
                     setAuthName(null);
+                    if (roles.length) {
+                        setLogged(2);
+                    } else {
+                        setLogged(1);
+                    }
                 }
             });
-    }, []);
+    }, [route]);
 
 
     if (null === logged) {
         return <Loader />
     }
 
-    if (true === logged) {
+    if (1 === logged) {
         return (
             <>
                 {children}
             </>
         )
     }
-    if (false === logged) {
+    if (2 === logged) {
         return (
             <Login />
+        )
+    }
+    if (3 === logged) {
+        return (
+            <RoleError />
         )
     }
 
