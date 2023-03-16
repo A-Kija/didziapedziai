@@ -22,6 +22,7 @@ export const GlobalProvider = ({children}) => {
     const [route, setRoute] = useState('home');
     const [logged, setLogged] = useState(null);
     const [authName, setAuthName] = useState(null);
+    const [authRole, setAuthRole] = useState(null);
 
   
 
@@ -80,10 +81,11 @@ export const GlobalProvider = ({children}) => {
             // route
             route, setRoute,
             // auth
-            authName, setAuthName, logOut, logged, setLogged,
+            authName, setAuthName, logOut, logged, setLogged, authRole, setAuthRole,
             //users
             users, setUpdateUsers,
             userResponse, setUserDelete
+            
         }}>
             {children}
         </Global.Provider>

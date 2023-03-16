@@ -3,7 +3,7 @@ import { Global } from "./Global";
 
 function Nav() {
 
-    const { route, setRoute, authName, logOut } = useContext(Global);
+    const { route, setRoute, authName, logOut, authRole } = useContext(Global);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,21 +12,28 @@ function Nav() {
                     <div className="navbar-brand">Lucky numbers</div>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav">
-                        <li className="nav-item">
+                            <li className="nav-item">
                                 <span onClick={_ => setRoute('home')} className={
                                     'nav-link' + (route === 'home' ? ' active' : '')
                                 }>HOME</span>
                             </li>
-                            <li className="nav-item">
-                                <span onClick={_ => setRoute('numbers')} className={
-                                    'nav-link' + (route === 'numbers' ? ' active' : '')
-                                }>Numbers</span>
-                            </li>
-                            <li className="nav-item">
-                                <span onClick={_ => setRoute('users')} className={
-                                    'nav-link' + (route === 'users' ? ' active' : '')
-                                }>Users</span>
-                            </li>
+                            {
+                                ['admin', 'manager'].includes(authRole) ?
+                                    <li className="nav-item">
+                                        <span onClick={_ => setRoute('numbers')} className={
+                                            'nav-link' + (route === 'numbers' ? ' active' : '')
+                                        }>Numbers</span>
+                                    </li> : null
+                            }
+                            {
+                                ['admin'].includes(authRole) ?
+                                    <li className="nav-item">
+                                        <span onClick={_ => setRoute('users')} className={
+                                            'nav-link' + (route === 'users' ? ' active' : '')
+                                        }>Users</span>
+                                    </li> : null
+                            }
+
                         </ul>
                     </div>
                     <ul className="navbar-nav">

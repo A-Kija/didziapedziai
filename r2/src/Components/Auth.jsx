@@ -7,7 +7,7 @@ import RoleError from './RoleError';
 
 function Auth({ children, roles }) {
 
-    const { setAuthName, logged, setLogged, route, setUpdate, setUpdateUsers } = useContext(Global);
+    const { setAuthRole, setAuthName, logged, setLogged, route, setUpdate, setUpdateUsers } = useContext(Global);
 
 
     useEffect(() => {
@@ -15,6 +15,7 @@ function Auth({ children, roles }) {
             .then(res => {
                 if (res.data.status === 'ok') {
                     setAuthName(res.data.name);
+                    setAuthRole(res.data.role);
                     if (roles) {
                         if (roles.split(',').includes(res.data.role)) {
                             setLogged(1);
@@ -32,6 +33,7 @@ function Auth({ children, roles }) {
                     }
                 } else {
                     setAuthName(null);
+                    setAuthRole(null);
                     if (roles.length) {
                         setLogged(2);
                     } else {
@@ -39,7 +41,7 @@ function Auth({ children, roles }) {
                     }
                 }
             });
-    }, [roles, route, setUpdate, setUpdateUsers, setLogged, setAuthName]);
+    }, [roles, route, setUpdate, setUpdateUsers, setLogged, setAuthName, setAuthRole]);
 
 
     if (null === logged) {
