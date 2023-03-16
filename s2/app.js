@@ -29,8 +29,17 @@ const doAuth = function(req, res, next) {
         const user = req.cookies.magicNumberSession ?
             users.find(u => u.session === req.cookies.magicNumberSession) :
             null;
-        console.log(req.cookies)
-        if (user) {
+        if (user && (user.role === 'admin' || user.role === 'manager')) {
+            next();
+        } else {
+            res.status(401).json({});
+        }
+    } else if (req.url.indexOf('/users') === 0) {
+        const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
+        const user = req.cookies.magicNumberSession ?
+            users.find(u => u.session === req.cookies.magicNumberSession) :
+            null;
+        if (user && (user.role === 'admin')) {
             next();
         } else {
             res.status(401).json({});

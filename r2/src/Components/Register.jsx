@@ -9,7 +9,7 @@ function Register() {
     const [psw, setPsw] = useState('');
     const [psw2, setPsw2] = useState('');
 
-    // const {setLogged, setAuthName} = useContext(Global);
+    const { setRoute } = useContext(Global);
 
     const register = _ => {
 
@@ -34,6 +34,7 @@ function Register() {
                     setPsw('');
                     setPsw2('');
                     setError(null);
+                    setRoute('login');
                 } else {
                     setError('Server error');
                 }

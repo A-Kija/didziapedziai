@@ -26,8 +26,10 @@ export const GlobalProvider = ({children}) => {
   
 
     useEffect(() => {
+        if (null === response) {
+            return;
+        }
         setUpdate(Date.now());
-        console.log(response);
         if (null !== response) {
             setMessage({text: response.message.text, type: response.message.type});
         }
@@ -35,28 +37,22 @@ export const GlobalProvider = ({children}) => {
 
 
     useEffect(() => {
+        if (null === userResponse) {
+            return;
+        }
         setUpdateUsers(Date.now());
-        if (null !== userResponse && userResponse.code) {
+        if (userResponse.code) {
             setMessage({text: userResponse.message ? userResponse.message : userResponse.code, type: 'danger'});
         }
-        else if (null !== userResponse) {
+        else {
             setMessage({text: userResponse.message.text, type: userResponse.message.type});
         }
-    }, [userResponse, setMessage, setUpdate]);
+    }, [userResponse, setMessage, setUpdateUsers]);
 
 
     useEffect(() => {
 
         setLogged(null);
-
-        if (route === 'users') {
-            setUpdateUsers(Date.now());
-        } else if (route === 'numbers') {
-            setUpdate(Date.now());
-        }
-
-
-
 
     }, [route])
 
@@ -64,9 +60,9 @@ export const GlobalProvider = ({children}) => {
     const logOut = _ => {
         axios.post('http://localhost:3003/logout', {}, { withCredentials: true })
         .then(res => {
-            console.log(res.data);
             setLogged(false);
             setAuthName(false);
+            setRoute('home');
         });
     }
 
@@ -74,6 +70,7 @@ export const GlobalProvider = ({children}) => {
         <Global.Provider value={{
             setDelete,
             setCreate,
+            setUpdate,
             list,
             // start modals
             deleteModal, setDeleteModal, addModal, setAddModal, remModal, setRemModal,

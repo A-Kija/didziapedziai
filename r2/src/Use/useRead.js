@@ -12,7 +12,7 @@ export const useRead = _ => {
         if (null === update) {
             return;
         }
-        axios.get(URL)
+        axios.get(URL, { withCredentials: true })
             .then(res => setList(res.data));
     }, [update]);
 
