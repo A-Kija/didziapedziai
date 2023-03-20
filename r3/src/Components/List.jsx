@@ -17,8 +17,14 @@ function List() {
                         trees?.map(t => (<li key={t.id} className="list-group-item">
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-8">
+                                    <div className="col-4">
                                         <h2>{t.title}</h2>
+                                    </div>
+                                    <div className="col-2">
+                                        <div>{t.height} m</div>
+                                    </div>
+                                    <div className="col-2">
+                                        <i>{t.type}</i>
                                     </div>
                                     <div className="col-2">
                                         <button type="button" className="btn btn-primary">PLANT</button>
