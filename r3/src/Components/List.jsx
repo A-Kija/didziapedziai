@@ -3,7 +3,7 @@ import { Global } from './Global';
 
 function List() {
 
-    const { trees } = useContext(Global);
+    const { trees, setDeleteTree, setEditModalTree } = useContext(Global);
 
 
     return (
@@ -27,10 +27,10 @@ function List() {
                                         <i>{t.type}</i>
                                     </div>
                                     <div className="col-2">
-                                        <button type="button" className="btn btn-primary">PLANT</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => setEditModalTree(t)}>rePLANT</button>
                                     </div>
                                     <div className="col-2">
-                                        <button type="button" className="btn btn-primary">CUT</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => setDeleteTree(t)}>CUT</button>
                                     </div>
                                 </div>
                             </div>

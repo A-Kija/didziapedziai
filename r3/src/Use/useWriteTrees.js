@@ -14,7 +14,7 @@ export const useWriteTrees = _ => {
         if (null === edit) {
             return;
         }
-        axios.put(URL + '/' + edit.action + '/' + edit.id, { number: edit.number }, { withCredentials: true })
+        axios.put(URL + '/' + edit.id, edit, { withCredentials: true })
             .then(res => {
                 setResponse(res.data)
             });

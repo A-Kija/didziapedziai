@@ -57,8 +57,35 @@ app.post('/trees', (req, res) => {
 });
 
 
+// DELETE FROM table_name WHERE condition;
+
+app.delete('/trees/:id', (req, res) => {
+    const sql = `
+        DELETE FROM trees
+        WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({});
+    });
+});
 
 
+// UPDATE table_name
+// SET column1 = value1, column2 = value2, ...
+// WHERE condition;
+
+app.put('/trees/:id', (req, res) => {
+    const sql = `
+        UPDATE trees
+        SET title = ?, height = ?, type = ?
+        WHERE id = ?
+    `;
+    con.query(sql, [req.body.title, req.body.height, req.body.type, req.params.id], (err) => {
+        if (err) throw err;
+        res.json({});
+    });
+});
 
 
 app.listen(port, () => {
