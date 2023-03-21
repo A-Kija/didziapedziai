@@ -1,7 +1,8 @@
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useModal } from '../Use/useModal';
 import { useReadTrees } from '../Use/useReadTrees';
 import { useWriteTrees } from '../Use/useWriteTrees';
+import axios from 'axios';
 
 const types = [
     {type: 1, typeTitle: 'Leaf Tree'},
@@ -17,9 +18,21 @@ export const GlobalProvider = ({children}) => {
     const [treeResponse, setCreateTree, setEditTree, setDeleteTree] = useWriteTrees();
     const [editModalTree, setEditModalTree] = useModal();
 
+    const [logged, setLogged] = useState(null);
+    const [authName, setAuthName] = useState(null);
+
     useEffect(() => {
         updateTrees(Date.now());
     }, [updateTrees, treeResponse]);
+
+    const logOut = _ => {
+        axios.post('http://localhost:3003/logout', {}, { withCredentials: true })
+        .then(_ => {
+            setLogged(false);
+            setAuthName(false);
+            setLogged(2);
+        });
+    }
 
     return (
         <Global.Provider value={{
@@ -28,7 +41,10 @@ export const GlobalProvider = ({children}) => {
             setCreateTree,
             setDeleteTree,
             setEditTree,
-            editModalTree, setEditModalTree
+            editModalTree, setEditModalTree,
+            logged, setLogged, authName, setAuthName,
+            updateTrees,
+            logOut
         }}>
             {children}
         </Global.Provider>

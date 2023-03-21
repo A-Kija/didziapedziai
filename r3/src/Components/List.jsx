@@ -3,13 +3,14 @@ import { Global } from './Global';
 
 function List() {
 
-    const { trees, setDeleteTree, setEditModalTree } = useContext(Global);
+    const { trees, setDeleteTree, setEditModalTree, logOut } = useContext(Global);
 
 
     return (
         <div className="card mt-4">
             <div className="card-header">
                 <h2>Big Forest</h2>
+                <button type="button" className="btn btn-primary" onClick={logOut}>Logout</button>
             </div>
             <div className="card-body">
                 <ul className="list-group">
