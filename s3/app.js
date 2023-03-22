@@ -7,6 +7,8 @@ const md5 = require('md5');
 
 const app = express();
 const port = 3003;
+app.use(express.json({ limit: '10mb' }));
+app.use(express.static('public'));
 
 const con = mysql.createConnection({
     host: 'localhost',

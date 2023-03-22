@@ -4,11 +4,13 @@ import Create from './Components/Create';
 import EditModal from './Components/EditModal';
 import { GlobalProvider } from './Components/Global';
 import List from './Components/List';
+import Nav from './Components/Nav';
 import './style/app.scss';
 
 function App() {
     return (
         <GlobalProvider>
+            <Nav />
             <Auth>
                 <>
                     <div className="container">
