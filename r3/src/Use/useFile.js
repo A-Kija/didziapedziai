@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from 'react';
 
 
 export const useFile = _ => {
@@ -6,9 +6,9 @@ export const useFile = _ => {
     const [file, setFile] = useState(null);
     const uploadInput = useRef(null);
 
-    // useEffect(() => {
-    //     console.log(file);
-    // }, [file]);
+    useEffect(() => {
+        // console.log(file);
+    }, [file]);
 
     const fileReader = file => {
         return new Promise((resolve, reject) => {

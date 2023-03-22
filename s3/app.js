@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 const mysql = require('mysql');
 const { v4: uuidv4 } = require('uuid');
 const md5 = require('md5');
@@ -66,7 +67,7 @@ const doAuth = function(req, res, next) {
 
 app.get('/trees', (req, res) => {
     const sql = `
-        SELECT id, title, height, type
+        SELECT id, title, height, type, image
         FROM trees
         ORDER BY type desc, title
     `;
@@ -80,11 +81,34 @@ app.get('/trees', (req, res) => {
 // VALUES (value1, value2, value3, ...);
 
 app.post('/trees', (req, res) => {
+
+    let fileName = null;
+
+    if (req.body.file !== null) {
+
+        let type = 'unknown';
+        let file;
+
+        if (req.body.file.indexOf('data:image/png;base64,') === 0) {
+            type = 'png';
+            file = Buffer.from(req.body.file.replace('data:image/png;base64,', ''), 'base64');
+        } else if (req.body.file.indexOf('data:image/jpeg;base64,') === 0) {
+            type = 'jpg';
+            file = Buffer.from(req.body.file.replace('data:image/jpeg;base64,', ''), 'base64');
+        } else {
+            file = Buffer.from(req.body.file, 'base64');
+        }
+
+        fileName = uuidv4() + '.' + type;
+
+        fs.writeFileSync('./public/img/' + fileName, file);
+    }
+
     const sql = `
-        INSERT INTO trees (title, height, type)
-        VALUES (?, ?, ?)
+        INSERT INTO trees (title, height, type, image)
+        VALUES (?, ?, ?, ?)
     `;
-    con.query(sql, [req.body.title, req.body.height, req.body.type], (err) => {
+    con.query(sql, [req.body.title, req.body.height, req.body.type, fileName], (err) => {
         if (err) throw err;
         res.json({});
     });
@@ -94,7 +118,20 @@ app.post('/trees', (req, res) => {
 // DELETE FROM table_name WHERE condition;
 
 app.delete('/trees/:id', (req, res) => {
-    const sql = `
+
+    let sql = `
+    SELECT image
+    FROM trees
+    WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        if (result[0].image) {
+            fs.unlinkSync('./public/img/' + result[0].image);
+        }
+    });
+
+    sql = `
         DELETE FROM trees
         WHERE id = ?
     `;

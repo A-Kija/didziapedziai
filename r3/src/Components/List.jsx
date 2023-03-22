@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { Global } from './Global';
+const IMG = 'http://localhost:3003/img/';
 
 function List() {
 
     const { trees, setDeleteTree, setEditModalTree } = useContext(Global);
 
+    console.log(trees);
 
     return (
         <div className="card mt-4">
@@ -32,6 +34,13 @@ function List() {
                                     </div>
                                     <div className="col-2">
                                         <button type="button" className="btn btn-primary" onClick={() => setDeleteTree(t)}>CUT</button>
+                                    </div>
+                                    <div className="col-4">
+                                        {
+                                            t.image
+                                            ? <img className="list-image" src={IMG + t.image} />
+                                            : <img className="list-image" src={IMG + 'no.gif'} />
+                                        }
                                     </div>
                                 </div>
                             </div>
