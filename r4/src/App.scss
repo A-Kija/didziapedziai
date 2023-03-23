@@ -1,0 +1,318 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 0.5s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+h2 {
+    color: darkcyan;
+}
+
+h1 {
+    &.blue {
+        background-color: #61dafb;
+    }
+    &.green {
+        background-color: lightgreen;
+    }
+    &.yellow {
+        background-color: lightyellow;
+    }
+}
+
+$brick: brown;
+.A .B {
+    .bin {
+        color: coral;
+        &.brick {
+            color: $brick;
+        }
+    }
+    .C {
+        .row-1 {
+            color: crimson;
+        }
+        .row-2 {
+            color: skyblue;
+        }
+    }
+}
+
+.list-bin {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    i {
+        font-size: 0.6em;
+    }
+}
+
+// ---------------------BUTTON
+$butonBlue: skyblue;
+$butonGray: gray;
+$butonRed: crimson;
+$butonCoral: coral;
+button {
+    display: inline-block;
+    user-select: none;
+    padding: 7px 30px;
+    margin: 20px 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 1.1em;
+    border: none;
+    outline: none;
+    text-align: center;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    background-color: $butonGray;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: darken($butonGray, 20%);
+    }
+    &.blue {
+        background-color: $butonBlue;
+        color: white;
+        &:hover {
+            background-color: darken($butonBlue, 20%);
+        }
+    }
+    &.red {
+        background-color: $butonRed;
+        color: white;
+        &:hover {
+            background-color: darken($butonRed, 20%);
+        }
+    }
+    &.coral {
+        background-color: $butonCoral;
+        color: white;
+        &:hover {
+            background-color: darken($butonCoral, 20%);
+        }
+    }
+    &.small {
+        padding: 2px 3px;
+        margin: 2px 3px;
+        font-size: 20px;
+        border-radius: 5px;
+    }
+}
+
+.sq-bin {
+    display: flex;
+    width: 55%;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px;
+    .sq {
+        width: 150px;
+        height: 150px;
+        border: 5px solid #9acd32;
+        border-radius: 10px;
+        margin: 5px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: white;
+        background-color: darkgray;
+        flex-wrap: wrap;
+        &.sm {
+            height: 70px;
+            width: 70px;
+        }
+        &.spin {
+            animation: App-logo-spin infinite 5s linear;
+        }
+        .spin-back {
+            animation: App-logo-spin infinite 5s linear;
+            animation-direction: reverse;
+        }
+    }
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    border: 10px dashed orange;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: App-logo-spin infinite 15s linear;
+    .circle-number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: App-logo-spin infinite 15s linear;
+        animation-direction: reverse;
+        &.n1 {
+            background-color: darkorange;
+            top: 120px;
+            left: 10px;
+        }
+        &.n2 {
+            background-color: darkorchid;
+            top: 120px;
+            right: 10px;
+        }
+        &.n3 {
+            background-color: darkgoldenrod;
+            top: 10px;
+            left: 120px;
+        }
+        &.n4 {
+            background-color: darkolivegreen;
+            bottom: 10px;
+            right: 120px;
+        }
+    }
+}
+
+.input-bin {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    &.red {
+        background-color: crimson;
+    }
+    label {
+        padding: 30px 0 10px 0;
+    }
+    input {
+        font-size: 0.8em;
+        padding: 2px 5px;
+        font-weight: lighter;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        background-color: white;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    select {
+        font-size: 0.8em;
+        padding: 2px 5px;
+        font-weight: lighter;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        background-color: white;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .cb-bin {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        label.cb {
+            font-size: 0.7em;
+            padding: 0 15px 0 5px;
+            cursor: pointer;
+            user-select: none;
+            color: darkgrey;
+        }
+        input {
+            display: none;
+        }
+        input:checked+label.cb {
+            color: white;
+        }
+    }
+    button {
+        max-width: 100px;
+    }
+}
+
+.box-area {
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 20px 20px;
+    border: 5px dotted orange;
+    position: relative;
+    min-height: 200px;
+    min-width: 400px;
+    .title {
+        position: absolute;
+        background-color: orange;
+        padding: 10px;
+        top: -20px;
+        left: 50px;
+    }
+}
+
+.nice-menu {
+    a {
+        color: skyblue;
+        text-decoration: none;
+        padding: 20px;
+        &:hover {
+            color: rgb(26, 171, 228);
+        }
+    }
+}
+
+.App-header.blue {
+    background-color: skyblue;
+    .nice-menu {
+        a {
+            color: white;
+        }
+    }
+}
