@@ -6,7 +6,7 @@ function List() {
 
     const { trees, setDeleteTree, setEditModalTree } = useContext(Global);
 
-    console.log(trees);
+    // console.log(trees);
 
     return (
         <div className="card mt-4">

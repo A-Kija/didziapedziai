@@ -147,12 +147,50 @@ app.delete('/trees/:id', (req, res) => {
 // WHERE condition;
 
 app.put('/trees/:id', (req, res) => {
+
+    let fileName = null;
+
+    if (req.body.delImg || req.body.file !== null) {
+        let sql = `
+        SELECT image
+        FROM trees
+        WHERE id = ?
+        `;
+        con.query(sql, [req.params.id], (err, result) => {
+            if (err) throw err;
+            if (result[0].image) {
+                fs.unlinkSync('./public/img/' + result[0].image);
+            }
+        });
+    }
+
+    if (req.body.file !== null) {
+
+        let type = 'unknown';
+        let file;
+
+        if (req.body.file.indexOf('data:image/png;base64,') === 0) {
+            type = 'png';
+            file = Buffer.from(req.body.file.replace('data:image/png;base64,', ''), 'base64');
+        } else if (req.body.file.indexOf('data:image/jpeg;base64,') === 0) {
+            type = 'jpg';
+            file = Buffer.from(req.body.file.replace('data:image/jpeg;base64,', ''), 'base64');
+        } else {
+            file = Buffer.from(req.body.file, 'base64');
+        }
+
+        fileName = uuidv4() + '.' + type;
+
+        fs.writeFileSync('./public/img/' + fileName, file);
+    }
+
+
     const sql = `
         UPDATE trees
-        SET title = ?, height = ?, type = ?
+        SET title = ?, height = ?, type = ?, image = ? 
         WHERE id = ?
     `;
-    con.query(sql, [req.body.title, req.body.height, req.body.type, req.params.id], (err) => {
+    con.query(sql, [req.body.title, req.body.height, req.body.type, fileName, req.params.id], (err) => {
         if (err) throw err;
         res.json({});
     });
