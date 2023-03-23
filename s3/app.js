@@ -184,13 +184,25 @@ app.put('/trees/:id', (req, res) => {
         fs.writeFileSync('./public/img/' + fileName, file);
     }
 
-
-    const sql = `
+    let sql;
+    let params;
+    if (!req.body.delImg && req.body.file === null) {
+        sql = `
+        UPDATE trees
+        SET title = ?, height = ?, type = ? 
+        WHERE id = ?
+    `;
+        params = [req.body.title, req.body.height, req.body.type, req.params.id]
+    } else {
+        sql = `
         UPDATE trees
         SET title = ?, height = ?, type = ?, image = ? 
         WHERE id = ?
     `;
-    con.query(sql, [req.body.title, req.body.height, req.body.type, fileName, req.params.id], (err) => {
+        params = [req.body.title, req.body.height, req.body.type, fileName, req.params.id];
+    }
+
+    con.query(sql, params, (err) => {
         if (err) throw err;
         res.json({});
     });
