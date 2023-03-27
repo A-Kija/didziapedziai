@@ -1,47 +1,53 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
-import countReducer from './Components/countReducer';
+import mainReducer from './Components/mainReducer';
+import middleware10 from './Components/middleware10';
+import useMiddleware from './Components/useMiddleware';
 
 function App() {
 
   const [add, setAdd] = useState(0)
-  const [count, dispachCount] = useReducer(countReducer, 1);
+  const [count, dispachCount] = useMiddleware(mainReducer, {
+    number: 1,
+    sq: []
+  }, [middleware10]);
 
   const add1 = _ => {
     const action = {
-      type: 'add_1'
+      type: ['c', 'add_1']
     };
     dispachCount(action);
   }
 
   const remove1 = _ => {
     const action = {
-      type: 'rem_1'
+      type: ['c', 'rem_1']
     };
     dispachCount(action);
   }
 
   const doAdd = _ => {
-    return {
-      type: 'add',
+    dispachCount({
+      type: ['c', 'add'],
       payload: parseInt(add)
-    }
+    });
   }
 
   return (
     <div className="App">
       <header className="App-header">
 
-        <h1 style={{
-          fontSize: '100px',
-          color: 'skyblue'
-        }}>{count}</h1>
+        <div className="sq-bin">
+          {
+            count.sq.map((_, i) => <div key={i} className="sq sm">{count.number + i}</div>)
+          }
+        </div>
 
         <div>
           <button className="coral" onClick={add1}>+1</button>
           <button className="red" onClick={remove1}>-1</button>
-          <button className="coral" onClick={_ => dispachCount({ type: 'add_3' })}>+3</button>
-          <button className="red" onClick={_ => dispachCount({ type: 'rem_3' })}>-3</button>
+          <button className="coral" onClick={_ => dispachCount({ type: ['c', 'add_3'] })}>+3</button>
+          <button className="red" onClick={_ => dispachCount({ type: ['c', 'rem_3'] })}>-3</button>
         </div>
         <div>
           <input type="number" 
@@ -50,6 +56,9 @@ function App() {
           onChange={e => setAdd(e.target.value)}
           ></input>
           <button className="blue" onClick={doAdd}>add</button>
+        </div>
+        <div>
+        <button className="coral" onClick={_ => dispachCount({ type: ['sq', 'add'] })}>[]</button>
         </div>
 
       </header>

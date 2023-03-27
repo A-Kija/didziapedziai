@@ -1,19 +1,26 @@
 export default function countReducer(state, action) {
 
-    switch (action.type) {
+    const copy = {...state };
+
+    switch (action.type[1]) {
         case 'add_1':
-            return state + 1;
+            copy.number = copy.number + 1;
+            break;
         case 'rem_1':
-            return state - 1;
+            copy.number = copy.number - 1;
+            break;
         case 'add_3':
-            return state + 3;
+            copy.number = copy.number + 3;
+            break;
         case 'rem_3':
-            return state - 3;
+            copy.number = copy.number - 3;
+            break;
         case 'add':
-            return state + action.payload;
+            copy.number = copy.number + action.payload;
+            break;
         default:
-            return state;
     }
 
+    return copy;
 
 }
