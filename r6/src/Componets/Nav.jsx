@@ -1,3 +1,5 @@
+import Link from "./Link";
+
 export default function Nav() {
 
     return (
@@ -10,17 +12,17 @@ export default function Nav() {
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <Link to="home" className="nav-link active">Pradinis</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
+                            <Link to="sections-create" className="nav-link">Nauja Sritis</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Pricing</a>
                         </li>
                     </ul>
                     <span className="navbar-text">
-                        Navbar text with an inline element
+                        <Link to="login" className="nav-link">Prisijungti</Link>
                     </span>
                 </div>
             </div>

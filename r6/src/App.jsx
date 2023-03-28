@@ -1,9 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useContext } from 'react';
 import './app.scss';
+import { useContext } from 'react';
+import { Store } from './store';
+
 import Nav from './Componets/Nav';
 import Home from './Pages/Home';
-import { Store } from './store';
+import SectionsCreate from './Pages/Sections/Create';
+import Login from './Pages/Auth/Login';
+
 
 
 function App() {
@@ -16,6 +20,8 @@ function App() {
 
 
       {page === 'home' ? <Home /> : null}
+      {page === 'sections-create' ? <SectionsCreate /> : null}
+      {page === 'login' ? <Login /> : null}
 
     </>
   );
