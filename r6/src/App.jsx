@@ -11,16 +11,19 @@ import Login from './Pages/Auth/Login';
 
 import SectionsList from './Pages/Sections/List';
 import SectionsCreate from './Pages/Sections/Create';
+import Messages from './Componets/Messages';
 
 
 
 function App() {
 
-  const { page, pageTop } = useContext(Store);
+  const { page, pageTop, messages } = useContext(Store);
 
   return (
     <>
       {pageTop === 'nav' ? <Nav /> : null}
+
+      {(messages && messages.length) ? <Messages messages={messages} /> : null }
 
 
       {page === 'home' ? <Home /> : null}

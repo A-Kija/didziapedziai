@@ -1,11 +1,15 @@
 import { createContext, useReducer } from 'react';
-import { sectionsList } from './actions';
+import { sectionsCreate, sectionsList } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
+import { useMessages } from './Use/useMessages';
 
 const actionsList = {
     ['sections-list']: sectionsList,
+    ['sections-create']: sectionsCreate,
+   
 }
+
 const url = 'http://localhost:3003/';
 
 
@@ -18,18 +22,22 @@ export const Provider = (props) => {
         pageTop: 'nav'
     });
 
+
     const dataDispach = action => {
         if (!action.payload || !action.payload.url) {
-            dispach(action)
+            dispach(action);
         } else {
-            axios[action.payload.method](url + action.payload.url)
+            const args = [url + action.payload.url];
+            if (action.payload.body) {
+                args.push(action.payload.body);
+            }
+            axios[action.payload.method](...args)
                 .then(res => {
-                    console.log(res.data)
                     action = {
                         ...action, payload:
                         {
                             ...action.payload, ...res.data
-                        }
+                        }, doDispach
                     }
                     dispach(action);
                 })
@@ -38,7 +46,9 @@ export const Provider = (props) => {
 
     }
 
-
+    const doDispach = action  => {
+        dataDispach(action);
+    }
 
     return (
         <Store.Provider value={{
@@ -47,7 +57,8 @@ export const Provider = (props) => {
 
             store,
             dispach: dataDispach,
-            actionsList
+            actionsList,
+            messages: store.messages
         }}>
             {props.children}
         </Store.Provider>

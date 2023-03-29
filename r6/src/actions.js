@@ -1,4 +1,4 @@
-import { NAVIGATE, SECTIONS_LIST } from "./types";
+import { NAVIGATE, SECTIONS_CREATE, SECTIONS_LIST } from './types';
 
 export const navigate = to => {
     return {
@@ -16,6 +16,17 @@ export const sectionsList = _ => {
             url: 'admin/sections',
             method: 'get',
             page: 'sections-list'
+        }
+    }
+}
+
+export const sectionsCreate = body => {
+    return {
+        type: SECTIONS_CREATE,
+        payload: {
+            url: 'admin/sections',
+            method: 'post',
+            body
         }
     }
 }

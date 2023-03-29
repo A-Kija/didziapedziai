@@ -1,3 +1,10 @@
 body {
     font-family: 'K2D', sans-serif;
 }
+
+.messages-bin {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    max-width: 300px;
+}

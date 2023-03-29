@@ -1,8 +1,21 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { sectionsCreate } from "../../actions";
+import { Store } from "../../store";
 
 export default function Create() {
 
     const [title, setTitle] = useState('');
+    const { dispach } = useContext(Store);
+
+    const create = _ => {
+        dispach(sectionsCreate(
+            {
+                title
+            }
+        ));
+        setTitle('');
+    }
+
 
     return (
         <div className="container">
@@ -18,7 +31,7 @@ export default function Create() {
                                 <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} />
                                 <div id="emailHelp" className="form-text">Pridėkite naujos viešosios srities pavadinimą</div>
                             </div>
-                            <button type="button" className="btn btn-primary">Pridėti</button>
+                            <button type="button" className="btn btn-primary" onClick={create}>Pridėti</button>
                         </div>
                     </div>
                 </div>
