@@ -18,7 +18,7 @@ export default function Nav() {
                             <Link to="sections-create" className="nav-link">Nauja Sritis</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
+                            <Link show="sections-list" className="nav-link">Sričių sąrašas</Link>
                         </li>
                     </ul>
                     <span className="navbar-text">

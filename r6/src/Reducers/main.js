@@ -1,8 +1,10 @@
-import { NAVIGATE } from "../types";
+import { NAVIGATE, SECTIONS_LIST } from "../types";
 
 export default function main(state, action) {
 
     const c = structuredClone(state);
+
+    console.log('REDUCER: ', action);
 
     switch (action.type) {
         case NAVIGATE:
@@ -18,6 +20,12 @@ export default function main(state, action) {
                     c.pageTop = defaultNav;
             }
             return c;
+        case SECTIONS_LIST:
+            c.pageTop = 'nav';
+            c.page = action.payload.page;
+            c.data = action.payload.data;
+            return c;
+        default:
     }
 
 

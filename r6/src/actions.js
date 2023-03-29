@@ -1,4 +1,4 @@
-import { NAVIGATE } from "./types";
+import { NAVIGATE, SECTIONS_LIST } from "./types";
 
 export const navigate = to => {
     return {
@@ -7,4 +7,15 @@ export const navigate = to => {
             to
         }
     };
+}
+
+export const sectionsList = _ => {
+    return {
+        type: SECTIONS_LIST,
+        payload: {
+            url: 'admin/sections',
+            method: 'get',
+            page: 'sections-list'
+        }
+    }
 }

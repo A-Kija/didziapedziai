@@ -5,8 +5,12 @@ import { Store } from './store';
 
 import Nav from './Componets/Nav';
 import Home from './Pages/Home';
-import SectionsCreate from './Pages/Sections/Create';
+
 import Login from './Pages/Auth/Login';
+
+
+import SectionsList from './Pages/Sections/List';
+import SectionsCreate from './Pages/Sections/Create';
 
 
 
@@ -21,6 +25,11 @@ function App() {
 
       {page === 'home' ? <Home /> : null}
       {page === 'sections-create' ? <SectionsCreate /> : null}
+      {page === 'sections-list' ? <SectionsList /> : null}
+
+
+      
+
       {page === 'login' ? <Login /> : null}
 
     </>
