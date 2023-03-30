@@ -1,6 +1,5 @@
 import { useContext, useState } from "react"
-import { sectionsCreate } from "../../actions";
-import { Store } from "../../store";
+import { actionsList, Store } from "../../store";
 
 export default function Edit() {
 
@@ -9,11 +8,7 @@ export default function Edit() {
     
 
     const edit = _ => {
-        dispach(sectionsCreate(
-            {
-                title
-            }
-        ));
+        dispach(actionsList['sections-edit']({title}, store?.data?.id));
     }
 
 

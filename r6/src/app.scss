@@ -18,3 +18,55 @@ body {
         gap: 10px;
     }
 }
+
+// BUTTONS
+$danger: #f8d7da;
+$info: #d1ecf1;
+$prim: #cce5ff;
+.btn-danger {
+    color: black;
+    background-color: $danger;
+    border-color: darken($danger, 10);
+    &:hover {
+        color: black;
+        background-color: lighten($danger, 5);
+        border-color: $danger;
+    }
+    &:disabled {
+        color: black;
+        background-color: lightgrey;
+        border-color: darken(lightgrey, 10);
+    }
+}
+
+.btn-info {
+    color: black;
+    background-color: $info;
+    border-color: darken($info, 10);
+    &:hover {
+        color: black;
+        background-color: lighten($info, 5);
+        border-color: $info;
+    }
+    &:disabled {
+        color: black;
+        background-color: lightgrey;
+        border-color: darken(lightgrey, 10);
+    }
+}
+
+.btn-primary {
+    color: black;
+    background-color: $prim;
+    border-color: darken($prim, 10);
+    &:hover {
+        color: black;
+        background-color: lighten($prim, 5);
+        border-color: $prim;
+    }
+    &:disabled {
+        color: black;
+        background-color: lightgrey;
+        border-color: darken(lightgrey, 10);
+    }
+}

@@ -1,4 +1,4 @@
-import { NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
+import { NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
 
 export const navigate = to => {
     return {
@@ -52,6 +52,19 @@ export const sectionsShowEdit = id => {
             url: 'admin/sections/' + id,
             method: 'get',
             page: 'sections-show-edit'
+        }
+    }
+}
+
+export const sectionsEdit = (body, id) => {
+    return {
+        type: SECTIONS_EDIT,
+        payload: {
+            url: 'admin/sections/' + id,
+            method: 'put',
+            body,
+            show: 'sections-list',
+            pauseShow: 1000
         }
     }
 }

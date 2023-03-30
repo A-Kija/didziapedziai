@@ -1,4 +1,4 @@
-import { NAVIGATE, REMOVE_MESSAGE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from "../types";
+import { NAVIGATE, REMOVE_MESSAGE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from "../types";
 import { v4 as uuidv4 } from 'uuid';
 import { actionsList } from '../store';
 
@@ -31,6 +31,7 @@ export default function main(state, action) {
 
         case SECTIONS_CREATE:
         case SECTIONS_DELETE:
+        case SECTIONS_EDIT:
 
             if (action.payload.msg) {
                 const uuid = uuidv4();
