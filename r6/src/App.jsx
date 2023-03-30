@@ -13,15 +13,20 @@ import Messages from './Componets/Messages';
 import SectionsList from './Pages/Sections/List';
 import SectionsCreate from './Pages/Sections/Create';
 import SectionsEdit from './Pages/Sections/Edit';
+import Loader from './Componets/Loader';
 
 
 
 function App() {
 
-  const { page, pageTop, messages } = useContext(Store);
+  const { page, pageTop, messages, loader } = useContext(Store);
+
+
 
   return (
     <>
+      {loader ? <Loader/> : null}
+      
       {pageTop === 'nav' ? <Nav /> : null}
 
       {(messages && messages.length) ? <Messages messages={messages} /> : null }

@@ -4,7 +4,7 @@ import { Store, actionsList } from '../../store';
 
 export default function List() {
 
-    const { store, dispach } = useContext(Store);
+    const { store, dispach, start } = useContext(Store);
 
 
     return (
@@ -24,8 +24,8 @@ export default function List() {
                                                 {s.title}
                                             </div>
                                             <div className="li-bin-buttons">
-                                            <button type="button" className="btn btn-info" onClick={_=> dispach(actionsList['sections-show-edit'](s.id))}>Redaguoti</button>
-                                            <button type="button" className="btn btn-danger" onClick={_=> dispach(actionsList['sections-delete'](s.id))}>Ištrinti</button>
+                                            <button type="button" className="btn btn-info" onClick={_=> {dispach(actionsList['sections-show-edit'](s.id)); start()}}>Redaguoti</button>
+                                            <button type="button" className="btn btn-danger" onClick={_=> {dispach(actionsList['sections-delete'](s.id)); start()}}>Ištrinti</button>
                                             </div>
                                         </div>
                                     </li>)

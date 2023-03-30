@@ -121,7 +121,6 @@ app.delete('/admin/sections/:id', (req, res) => {
 
 app.put('/admin/sections/:id', (req, res) => {
 
-
     const sql = `
         UPDATE sections
         SET title = ? 
