@@ -8,10 +8,11 @@ import Home from './Pages/Home';
 
 import Login from './Pages/Auth/Login';
 
+import Messages from './Componets/Messages';
 
 import SectionsList from './Pages/Sections/List';
 import SectionsCreate from './Pages/Sections/Create';
-import Messages from './Componets/Messages';
+import SectionsEdit from './Pages/Sections/Edit';
 
 
 
@@ -29,6 +30,7 @@ function App() {
       {page === 'home' ? <Home /> : null}
       {page === 'sections-create' ? <SectionsCreate /> : null}
       {page === 'sections-list' ? <SectionsList /> : null}
+      {page === 'sections-show-edit' ? <SectionsEdit /> : null}
 
 
       

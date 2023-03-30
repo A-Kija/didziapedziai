@@ -8,3 +8,13 @@ body {
     right: 50px;
     max-width: 300px;
 }
+
+.li-bin {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .li-bin-buttons {
+        display: flex;
+        gap: 10px;
+    }
+}

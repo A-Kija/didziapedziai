@@ -76,6 +76,18 @@ app.get('/admin/sections', (req, res) => {
     });
 });
 
+app.get('/admin/sections/:id', (req, res) => {
+    const sql = `
+        SELECT id, title
+        FROM sections
+        WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.json({ data: result[0] });
+    });
+});
+
 
 app.post('/admin/sections', (req, res) => {
     const sql = `
@@ -90,30 +102,17 @@ app.post('/admin/sections', (req, res) => {
     });
 });
 
+app.delete('/admin/sections/:id', (req, res) => {
 
-// DELETE FROM table_name WHERE condition;
-
-app.delete('/trees/:id', (req, res) => {
-
-    let sql = `
-    SELECT image
-    FROM trees
-    WHERE id = ?
-    `;
-    con.query(sql, [req.params.id], (err, result) => {
-        if (err) throw err;
-        if (result[0].image) {
-            fs.unlinkSync('./public/img/' + result[0].image);
-        }
-    });
-
-    sql = `
-        DELETE FROM trees
+    const sql = `
+        DELETE FROM sections
         WHERE id = ?
     `;
     con.query(sql, [req.params.id], (err) => {
         if (err) throw err;
-        res.json({});
+        res.json({
+            msg: { text: 'Sritis ištrinta', type: 'info' }
+        });
     });
 });
 

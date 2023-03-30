@@ -1,13 +1,13 @@
 import { createContext, useReducer } from 'react';
-import { sectionsCreate, sectionsList } from './actions';
+import { sectionsCreate, sectionsDelete, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
-import { useMessages } from './Use/useMessages';
 
-const actionsList = {
-    ['sections-list']: sectionsList,
-    ['sections-create']: sectionsCreate,
-   
+export const actionsList = {
+    'sections-list': sectionsList,
+    'sections-create': sectionsCreate,
+    'sections-delete': sectionsDelete,
+    'sections-show-edit': sectionsShowEdit,
 }
 
 const url = 'http://localhost:3003/';
