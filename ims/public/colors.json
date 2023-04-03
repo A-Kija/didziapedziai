@@ -1,0 +1,21 @@
+[{
+        "id": 1,
+        "color": "pink",
+        "number": 5
+    },
+    {
+        "id": 2,
+        "color": "coral",
+        "number": 8
+    },
+    {
+        "id": 3,
+        "color": "skyblue",
+        "number": 14
+    },
+    {
+        "id": 4,
+        "color": "crimson",
+        "number": 9
+    }
+]
