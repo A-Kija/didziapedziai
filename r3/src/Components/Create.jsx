@@ -9,6 +9,7 @@ function Create() {
     const [height, setHeight] = useState(0);
     const [type, setType] = useState(1);
     const [file, readFile, remImage] = useFile();
+    
 
     const { setCreateTree, types } = useContext(Global);
 

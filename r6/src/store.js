@@ -1,5 +1,5 @@
 import { createContext, useReducer, useState } from 'react';
-import { sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
+import { districtsCreate, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
 
@@ -9,6 +9,8 @@ export const actionsList = {
     'sections-delete': sectionsDelete,
     'sections-show-edit': sectionsShowEdit,
     'sections-edit': sectionsEdit,
+    
+    'districts-create': districtsCreate
 }
 
 const url = 'http://localhost:3003/';
@@ -36,6 +38,7 @@ export const Provider = (props) => {
             if (action.payload.body) {
                 args.push(action.payload.body);
             }
+            setLoader(true);
             axios[action.payload.method](...args)
                 .then(res => {
                     action = {
@@ -45,7 +48,10 @@ export const Provider = (props) => {
                         }, doDispach
                     }
                     dispach(action);
-                    setLoader(false);
+                    if(!action.payload.show) {
+                        setLoader(false);
+                    }
+                    
                 })
         }
 

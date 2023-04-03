@@ -20,6 +20,12 @@ export default function Nav() {
                         <li className="nav-item">
                             <Link action="sections-list" className="nav-link">Sričių sąrašas</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="districts-create" className="nav-link">Naujas Rajonas</Link>
+                        </li>
+
+
+                        
                     </ul>
                     <span className="navbar-text">
                         <Link to="login" className="nav-link">Prisijungti</Link>
