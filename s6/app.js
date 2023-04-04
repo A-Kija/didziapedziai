@@ -62,14 +62,11 @@ const doAuth = function(req, res, next) {
 // app.use(doAuth);
 
 const convertPhoto = (photo) => {
-
     let type = 'unknown';
     let file = null;
-
     if (photo === null) {
         return [type, file];
     }
-
     if (photo.indexOf('data:image/png;base64,') === 0) {
         type = 'png';
         file = Buffer.from(photo.replace('data:image/png;base64,', ''), 'base64');
@@ -79,23 +76,31 @@ const convertPhoto = (photo) => {
     } else {
         file = Buffer.from(photo, 'base64');
     }
-
     return [type, file];
-
 }
 
 const createPhoto = (photo) => {
-
     const [type, file] = convertPhoto(photo);
-
     if (file === null) {
         return null
     }
-
     const fileName = uuidv4() + '.' + type;
     fs.writeFileSync('./public/img/' + fileName, file);
-
     return fileName
+}
+
+const deletePhoto = (id) => {
+    const sql = `
+        SELECT photo
+        FROM districts
+        WHERE id = ?
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        if (result[0].photo) {
+            fs.unlinkSync('./public/img/' + result[0].photo);
+        }
+    });
 }
 
 
@@ -166,7 +171,6 @@ app.put('/admin/sections/:id', (req, res) => {
     `;
     params = [req.body.title, req.params.id];
 
-
     con.query(sql, params, (err) => {
         if (err) throw err;
         res.json({
@@ -180,8 +184,8 @@ app.put('/admin/sections/:id', (req, res) => {
 
 app.get('/admin/districts', (req, res) => {
     const sql = `
-        SELECT id, title
-        FROM sections
+        SELECT id, title, photo
+        FROM districts
         ORDER BY title
     `;
     con.query(sql, (err, result) => {
@@ -190,6 +194,17 @@ app.get('/admin/districts', (req, res) => {
     });
 });
 
+app.get('/admin/districts/:id', (req, res) => {
+    const sql = `
+        SELECT id, title, photo
+        FROM districts
+        WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.json({ data: result[0] });
+    });
+});
 
 app.post('/admin/districts', (req, res) => {
     const sql = `
@@ -200,6 +215,54 @@ app.post('/admin/districts', (req, res) => {
         if (err) throw err;
         res.json({
             msg: { text: 'Naujas rajonas pridėtas', type: 'success' }
+        });
+    });
+});
+
+app.delete('/admin/districts/:id', (req, res) => {
+
+    deletePhoto(req.params.id);
+
+    sql = `
+        DELETE FROM districts
+        WHERE id = ?
+    `;
+
+    con.query(sql, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+            msg: { text: 'Rajonas ištrintas', type: 'info' }
+        });
+    });
+});
+
+
+app.put('/admin/districts/:id', (req, res) => {
+
+    let sql;
+    fileName = createPhoto(req.body.file);
+
+    if (fileName || req.body.delImg) {
+        deletePhoto(req.params.id);
+        sql = `
+            UPDATE districts
+            SET title = ?, photo = ?
+            WHERE id = ?
+        `;
+        params = [req.body.title, fileName, req.params.id];
+    } else {
+        sql = `
+            UPDATE districts
+            SET title = ?
+            WHERE id = ?
+        `;
+        params = [req.body.title, req.params.id];
+    }
+
+    con.query(sql, params, (err) => {
+        if (err) throw err;
+        res.json({
+            msg: { text: 'Rajonas pakeistas', type: 'info' }
         });
     });
 });

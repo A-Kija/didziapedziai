@@ -6,8 +6,11 @@ export default function Link({ to, children, className, action }) {
 
     const { actionsList, dispach} = useContext(Store);
 
+    
+
     const go = e => {
         e.preventDefault();
+        console.log('LINK:', action);
         // window.location.hash = to || action;
         if (to) {
              dispach(navigate(to));

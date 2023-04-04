@@ -38,6 +38,8 @@ function App() {
       {(messages && messages.length) ? <Messages messages={messages} /> : null }
 
 
+      {console.log('PAGE:', page)}
+
       {page === 'home' ? <Home /> : null}
       {page === 'sections-create' ? <SectionsCreate /> : null}
       {page === 'sections-list' ? <SectionsList /> : null}

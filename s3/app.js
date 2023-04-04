@@ -164,6 +164,7 @@ app.put('/trees/:id', (req, res) => {
         });
     }
 
+
     if (req.body.file !== null) {
 
         let type = 'unknown';

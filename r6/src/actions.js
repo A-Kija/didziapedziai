@@ -1,4 +1,4 @@
-import { DISTRICTS_CREATE, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
+import { DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
 
 export const navigate = to => {
     return {
@@ -16,6 +16,17 @@ export const sectionsList = _ => {
             url: 'admin/sections',
             method: 'get',
             page: 'sections-list'
+        }
+    }
+}
+
+export const districtsList = _ => {
+    return {
+        type: DISTRICTS_LIST,
+        payload: {
+            url: 'admin/districts',
+            method: 'get',
+            page: 'districts-list'
         }
     }
 }
@@ -59,6 +70,18 @@ export const sectionsDelete = id => {
     }
 }
 
+export const districtsDelete = id => {
+    return {
+        type: DISTRICTS_DELETE,
+        payload: {
+            url: 'admin/districts/' + id,
+            method: 'delete',
+            show: 'districts-list',
+            pauseShow: 0
+        }
+    }
+}
+
 export const sectionsShowEdit = id => {
     return {
         type: SECTIONS_SHOW_EDIT,
@@ -66,6 +89,17 @@ export const sectionsShowEdit = id => {
             url: 'admin/sections/' + id,
             method: 'get',
             page: 'sections-show-edit'
+        }
+    }
+}
+
+export const districtsShowEdit = id => {
+    return {
+        type: DISTRICTS_SHOW_EDIT,
+        payload: {
+            url: 'admin/districts/' + id,
+            method: 'get',
+            page: 'districts-show-edit'
         }
     }
 }
@@ -78,6 +112,19 @@ export const sectionsEdit = (body, id) => {
             method: 'put',
             body,
             show: 'sections-list',
+            pauseShow: 1000
+        }
+    }
+}
+
+export const districtsEdit = (body, id) => {
+    return {
+        type: DISTRICTS_EDIT,
+        payload: {
+            url: 'admin/districts/' + id,
+            method: 'put',
+            body,
+            show: 'districts-list',
             pauseShow: 1000
         }
     }
