@@ -12,6 +12,10 @@ export default function Nav() {
                             <Link to="home" className="nav-link active">Pradinis</Link>
                         </li>
                         <li className="nav-item">
+                            <Link action="common-list" className="nav-link">Pasiūlymai</Link>
+                        </li>
+
+                        <li className="nav-item">
                             <Link action="sections-list" className="nav-link">Sritys</Link>
                         </li>
                         <li className="nav-item">

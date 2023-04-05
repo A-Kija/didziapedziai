@@ -21,3 +21,7 @@ export const DISTRICTS_CREATE = 2002 // create new item in districts
 export const DISTRICTS_DELETE = 2003 // delete item in districts
 export const DISTRICTS_SHOW_EDIT = 2004 // show districts item edit
 export const DISTRICTS_EDIT = 2005 // edit districts item
+
+
+export const COMMON_LIST = 3001 // get districts and sections list
+export const DISTRICT_SECTION = 3002 // get district and section comments

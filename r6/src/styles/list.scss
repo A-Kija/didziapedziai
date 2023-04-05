@@ -1,0 +1,32 @@
+.list-title {
+    margin: 5px;
+    font-size: 30px;
+    color: darkolivegreen;
+}
+
+.list-bin {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    .list-district {
+        span {
+            font-size: 30px;
+            color: darkcyan;
+        }
+        .list-image img {
+            width: 300px;
+            height: auto;
+        }
+    }
+    .list-section {
+        span {
+            font-size: 20px;
+            color: darkmagenta;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    .list-comments {}
+}

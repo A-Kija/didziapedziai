@@ -103,6 +103,45 @@ const deletePhoto = (id) => {
     });
 }
 
+//*************** FRONT OFFICE ********************/
+
+// SELECT column_name(s) FROM table1
+// UNION ALL
+// SELECT column_name(s) FROM table2;
+
+app.get('/common-list', (req, res) => {
+    const sql = `
+        SELECT 'section' AS type, '' AS photo, id, title
+        FROM sections
+        UNION
+        SELECT 'district', photo, id, title
+        FROM districts
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.json({ data: result });
+    });
+});
+
+app.get('/comments/:did/:sid', (req, res) => {
+    const sql = `
+        SELECT id, 'district' AS type, title AS data
+        FROM districts
+        WHERE id = ?
+        UNION
+        SELECT id, 'section', title
+        FROM sections
+        WHERE id = ?
+        UNION
+        SELECT id, 'comment', comment
+        FROM comments
+        WHERE section_id = ? AND district_id = ?
+    `;
+    con.query(sql, [req.params.did, req.params.sid, req.params.sid, req.params.did], (err, result) => {
+        if (err) throw err;
+        res.json({ data: result });
+    });
+});
 
 
 //*************** SECTIONS ********************/

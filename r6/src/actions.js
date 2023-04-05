@@ -1,4 +1,4 @@
-import { DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
+import { COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
 
 export const navigate = to => {
     return {
@@ -30,6 +30,30 @@ export const districtsList = _ => {
         }
     }
 }
+
+export const commonList = _ => {
+    return {
+        type: COMMON_LIST,
+        payload: {
+            url: 'common-list',
+            method: 'get',
+            page: 'common-list'
+        }
+    }
+}
+
+export const districtSection = ([did, sid]) => {
+    return {
+        type: DISTRICT_SECTION,
+        payload: {
+            url: 'comments/' + did + '/' + sid,
+            method: 'get',
+            page: 'comments'
+        }
+    }
+}
+
+
 
 export const sectionsCreate = body => {
     return {
