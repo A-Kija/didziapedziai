@@ -1,4 +1,4 @@
-import { COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
+import { ADD_COMMENT, COMMENTS_SHOW_EDIT, COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
 
 export const navigate = to => {
     return {
@@ -42,6 +42,19 @@ export const commonList = _ => {
     }
 }
 
+
+export const commentsShowEdit = _ => {
+    return {
+        type: COMMENTS_SHOW_EDIT,
+        payload: {
+            url: 'admin/comments',
+            method: 'get',
+            page: 'comments-show-edit'
+        }
+    }
+}
+
+
 export const districtSection = ([did, sid]) => {
     return {
         type: DISTRICT_SECTION,
@@ -49,6 +62,19 @@ export const districtSection = ([did, sid]) => {
             url: 'comments/' + did + '/' + sid,
             method: 'get',
             page: 'comments'
+        }
+    }
+}
+
+export const addComment = ([did, sid], body) => {
+    return {
+        type: ADD_COMMENT,
+        payload: {
+            url: 'comments/' + did + '/' + sid,
+            method: 'post',
+            body,
+            show: 'common-list',
+            pauseShow: 1000
         }
     }
 }

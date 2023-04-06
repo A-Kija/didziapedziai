@@ -135,9 +135,40 @@ app.get('/comments/:did/:sid', (req, res) => {
         UNION
         SELECT id, 'comment', comment
         FROM comments
-        WHERE section_id = ? AND district_id = ?
+        WHERE section_id = ? AND district_id = ? AND show_it = 1
     `;
     con.query(sql, [req.params.did, req.params.sid, req.params.sid, req.params.did], (err, result) => {
+        if (err) throw err;
+        res.json({ data: result });
+    });
+});
+
+app.post('/comments/:did/:sid', (req, res) => {
+    const sql = `
+        INSERT INTO comments (comment, district_id, section_id)
+        VALUES (?, ?, ?)
+    `;
+    con.query(sql, [req.body.text, req.params.did, req.params.sid], (err, result) => {
+        if (err) throw err;
+        res.json({
+            msg: { text: 'Jūsų pasiūlymas priimtas', type: 'info' }
+        });
+    });
+});
+
+//*************** COMMENTS ********************/
+
+app.get('/admin/comments', (req, res) => {
+    const sql = `
+        SELECT c.id, comment, show_it, d.title AS district, s.title AS section
+        FROM comments AS c
+        INNER JOIN districts AS d
+        ON c.district_id = d.id
+        INNER JOIN sections AS s
+        ON c.section_id = s.id
+        ORDER BY c.id DESC
+    `;
+    con.query(sql, (err, result) => {
         if (err) throw err;
         res.json({ data: result });
     });

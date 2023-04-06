@@ -20,6 +20,8 @@ import DistrictsList from './Pages/Districts/List';
 import DistrictsCreate from './Pages/Districts/Create';
 import DistrictsEdit from './Pages/Districts/Edit';
 
+import CommentsEdit from './Pages/Comments/List';
+
 import CommonList from './Pages/Front/List';
 import Comments from './Pages/Front/Comments';
 
@@ -52,6 +54,8 @@ function App() {
 
       {page === 'common-list' ? <CommonList /> : null}
       {page === 'comments' ? <Comments /> : null}
+
+      {page === 'comments-show-edit' ? <CommentsEdit /> : null}
 
       
 

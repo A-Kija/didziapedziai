@@ -27,8 +27,11 @@ export default function Nav() {
                         <li className="nav-item">
                             <Link to="districts-create" className="nav-link">Naujas Rajonas</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link action="comments-show-edit" className="nav-link">Pasiūlymų peržiūra</Link>
+                        </li>
 
-
+                        
                         
                     </ul>
                     <span className="navbar-text">

@@ -1,12 +1,23 @@
-import { useContext } from 'react';
-import Link from '../../Componets/Link';
-import { Store } from '../../store';
+import { useContext, useState } from 'react';
+import { actionsList, Store } from '../../store';
 import '../../styles/list.scss';
 
 export default function Comments() {
 
-    const { store, imgUrl } = useContext(Store);
+    const { store, dispach } = useContext(Store);
 
+    const [text, setText] = useState('');
+
+
+    const add = _ => {
+        const did = store?.data?.find(d => d.type === 'district').id;
+        const sid = store?.data?.find(d => d.type === 'section').id;
+
+        dispach(actionsList['add-comment'](
+            [did, sid],
+            { text }
+        ));
+    }
 
     return (
         <div className="container">
@@ -14,7 +25,8 @@ export default function Comments() {
                 <div className="col-12">
                     <div className="card m-5">
                         <div className="card-header">
-                            <h1 className="list-title">Pasiūlymų sąrašas</h1>
+                            <h1 className="list-title">{store?.data?.find(d => d.type === 'district').data}</h1>
+                            <h2 className="list-subtitle">{store?.data?.find(d => d.type === 'section').data}</h2>
                         </div>
                         <div className="card-body">
                             <ul className="list-group list-group-flush">
@@ -28,6 +40,11 @@ export default function Comments() {
                                     </li> : null)
                                 }
                             </ul>
+                            <div className="mt-5">
+                                <label className="form-label">Jūsų pasiūlymas:</label>
+                                <textarea className="form-control" rows="7" value={text} onChange={e => setText(e.target.value)}></textarea>
+                            </div>
+                            <button type="button" className="btn btn-primary mt-3" onClick={add}>Pateikti pasiūlymą</button>
                         </div>
                     </div>
                 </div>

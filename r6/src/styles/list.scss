@@ -4,6 +4,12 @@
     color: darkolivegreen;
 }
 
+.list-subtitle {
+    margin: 5px;
+    font-size: 20px;
+    color: darkcyan;
+}
+
 .list-bin {
     display: flex;
     width: 100%;
@@ -28,5 +34,12 @@
             text-decoration: none;
         }
     }
-    .list-comments {}
+    .list-comment {
+        .where {
+            font-size: 18px;
+            color: darkcyan;
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
