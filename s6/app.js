@@ -174,6 +174,37 @@ app.get('/admin/comments', (req, res) => {
     });
 });
 
+app.put('/admin/comments-edit/:id', (req, res) => {
+
+    const sql = `
+        UPDATE comments
+        SET show_it = IF(show_it = 1, 0, 1)
+        WHERE id = ?
+    `;
+    params = [req.params.id];
+
+    con.query(sql, params, (err) => {
+        if (err) throw err;
+        res.json({
+            msg: { text: 'Pasiūlymo statusas pakeistas', type: 'info' }
+        });
+    });
+});
+
+app.delete('/admin/comments/:id', (req, res) => {
+
+    const sql = `
+        DELETE FROM comments
+        WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+            msg: { text: 'Komentaras panaikintas. Nebėra.', type: 'info' }
+        });
+    });
+});
+
 
 //*************** SECTIONS ********************/
 

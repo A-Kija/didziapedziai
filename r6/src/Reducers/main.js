@@ -1,4 +1,4 @@
-import { ADD_COMMENT, COMMENTS_SHOW_EDIT, COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, REMOVE_MESSAGE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from "../types";
+import { ADD_COMMENT, COMMENTS_SHOW_EDIT, COMMENT_DELETE, COMMENT_SHOW_HIDE, COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, REMOVE_MESSAGE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT, SHOW_MESSAGE } from "../types";
 import { v4 as uuidv4 } from 'uuid';
 import { actionsList } from '../store';
 
@@ -41,8 +41,14 @@ export default function main(state, action) {
         case DISTRICTS_DELETE:
         case DISTRICTS_EDIT:
         case ADD_COMMENT:
+        case COMMENT_SHOW_HIDE:
+        case COMMENT_DELETE:
+        case SHOW_MESSAGE:
+
+            console.log('PL:', action.payload);
 
             if (action.payload.msg) {
+
                 const uuid = uuidv4();
                 if (!c.messages) {
                     c.messages = [];

@@ -1,7 +1,8 @@
 import { createContext, useReducer, useState } from 'react';
-import { addComment, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
+import { addComment, commentDelete, commentShowHide, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
+import { SHOW_MESSAGE } from './types';
 
 export const actionsList = {
     'sections-list': sectionsList,
@@ -17,6 +18,8 @@ export const actionsList = {
     'districts-edit': districtsEdit,
 
     'comments-show-edit': commentsShowEdit,
+    'comment-show-hide': commentShowHide,
+    'comment-delete': commentDelete,
 
     'common-list': commonList,
     'district-section' : districtSection,
@@ -64,6 +67,17 @@ export const Provider = (props) => {
                         setLoader(false);
                     }
                     
+                })
+                .catch(error => {
+                    const errorAction = {};
+                    errorAction.payload = {
+                        msg: { text: 'ERRRO.', type: 'danger' }
+                    }
+                    errorAction.type = SHOW_MESSAGE;
+                    errorAction.doDispach = doDispach;
+                    dispach(errorAction);
+
+                    setLoader(false);
                 })
         }
 

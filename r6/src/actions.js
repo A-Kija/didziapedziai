@@ -1,4 +1,4 @@
-import { ADD_COMMENT, COMMENTS_SHOW_EDIT, COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
+import { ADD_COMMENT, COMMENTS_SHOW_EDIT, COMMENT_DELETE, COMMENT_SHOW_HIDE, COMMON_LIST, DISTRICTS_CREATE, DISTRICTS_DELETE, DISTRICTS_EDIT, DISTRICTS_LIST, DISTRICTS_SHOW_EDIT, DISTRICT_SECTION, NAVIGATE, SECTIONS_CREATE, SECTIONS_DELETE, SECTIONS_EDIT, SECTIONS_LIST, SECTIONS_SHOW_EDIT } from './types';
 
 export const navigate = to => {
     return {
@@ -132,6 +132,18 @@ export const districtsDelete = id => {
     }
 }
 
+export const commentDelete = id => {
+    return {
+        type: COMMENT_DELETE,
+        payload: {
+            url: 'admin/comments/o/' + id,
+            method: 'delete',
+            show: 'comments-show-edit',
+            pauseShow: 0
+        }
+    }
+}
+
 export const sectionsShowEdit = id => {
     return {
         type: SECTIONS_SHOW_EDIT,
@@ -163,6 +175,18 @@ export const sectionsEdit = (body, id) => {
             body,
             show: 'sections-list',
             pauseShow: 1000
+        }
+    }
+}
+
+export const commentShowHide = (id) => {
+    return {
+        type: COMMENT_SHOW_HIDE,
+        payload: {
+            url: 'admin/comments-edit/' + id,
+            method: 'put',
+            show: 'comments-show-edit',
+            pauseShow: 100
         }
     }
 }
