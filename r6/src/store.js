@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer, useState } from 'react';
-import { addComment, commentDelete, commentShowHide, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
+import { addComment, commentDelete, commentShowHide, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, navigate, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
 import { SHOW_MESSAGE } from './types';
@@ -24,8 +24,31 @@ export const actionsList = {
     'common-list': commonList,
     'district-section' : districtSection,
     'add-comment': addComment,
-
 }
+
+const pagesList = [
+    'sections-list',
+    'sections-create',
+    'sections-delete',
+    'sections-show-edit',
+    'sections-edit',
+    'districts-create',
+    'districts-list',
+    'districts-delete',
+    'districts-show-edit',
+    'districts-edit',
+    'comments-show-edit',
+    'comment-show-hide',
+    'comment-delete',
+    'common-list',
+    'district-section',
+    'add-comment',
+    'show-sections-create',
+    'show-districts-create',
+    'login',
+    'home',
+    'empty'
+]
 
 const url = 'http://localhost:3003/';
 const imgUrl = 'http://localhost:3003/img/';
@@ -49,13 +72,29 @@ export const Provider = (props) => {
 
         console.log('app start');
 
-        const startPage = window.location.hash.substring(1) || 'home';
+        const viewHash = _ => {
+            let startPage = window.location.hash.substring(1) || 'home';
+            let params;
 
-   
-        dataDispach(actionsList[startPage]());
+            params = startPage.split('/');
+
+            startPage = params.shift();
+
+            params = params.length ? params : null
+
+            !pagesList.includes(startPage) && (startPage = '404'); // fancy if
+
+            if (actionsList[startPage]) {
+                dataDispach(actionsList[startPage](params));
+            } else {
+                dispach(navigate(startPage));
+            }
+        }
+
+        viewHash();
 
         window.addEventListener('hashchange', (e) => {
-            console.log('has now:', window.location.hash)
+            viewHash();
         });
 
     }, []);

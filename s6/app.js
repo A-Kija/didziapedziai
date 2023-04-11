@@ -191,6 +191,8 @@ app.put('/admin/comments-edit/:id', (req, res) => {
     });
 });
 
+
+
 app.delete('/admin/comments/:id', (req, res) => {
 
     const sql = `
@@ -204,6 +206,7 @@ app.delete('/admin/comments/:id', (req, res) => {
         });
     });
 });
+
 
 
 //*************** SECTIONS ********************/

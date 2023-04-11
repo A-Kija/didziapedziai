@@ -10,8 +10,16 @@ export default function Link({ to, children, className, action, data }) {
 
     const go = e => {
         e.preventDefault();
-        console.log('LINK:', action);
-        window.location.hash = to || action;
+        console.log('LINK:', action, data);
+
+        let params = '';
+        if (data) {
+            params = '/' + data.join('/');
+        }
+
+        window.location.hash = (to || action) + params;
+
+
         if (to) {
             dispach(navigate(to));
         } else {

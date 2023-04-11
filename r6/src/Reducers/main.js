@@ -16,6 +16,7 @@ export default function main(state, action) {
             switch (action.payload.to) {
                 case 'login':
                 case 'register':
+                case '404':
                     c.pageTop = '';
                     break;
                 default:
