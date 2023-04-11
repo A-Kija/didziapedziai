@@ -5,6 +5,7 @@ import { Store } from './store';
 
 import Nav from './Componets/Nav';
 import Home from './Pages/Home';
+import Empty from './Pages/Empty';
 
 import Login from './Pages/Auth/Login';
 
@@ -26,6 +27,7 @@ import CommonList from './Pages/Front/List';
 import Comments from './Pages/Front/Comments';
 
 
+
 function App() {
 
   const { page, pageTop, messages, loader } = useContext(Store);
@@ -43,6 +45,8 @@ function App() {
 
       {console.log('PAGE:', page)}
 
+
+      {page === 'empty' ? <Empty /> : null}
       {page === 'home' ? <Home /> : null}
       {page === 'sections-create' ? <SectionsCreate /> : null}
       {page === 'sections-list' ? <SectionsList /> : null}

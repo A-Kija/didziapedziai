@@ -5,7 +5,7 @@ export default function Nav() {
     return (
         <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="a">Navbar w/ text</a>
+                <a className="navbar-brand" href="a">VPS</a>
                 <div className="navbar-collapse">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">

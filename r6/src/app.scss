@@ -25,6 +25,12 @@ body {
     }
 }
 
+.navbar-brand {
+    color: darkcyan;
+    font-family: monospace;
+    font-size: 150%;
+}
+
 // BUTTONS
 $danger: #f8d7da;
 $info: #d1ecf1;

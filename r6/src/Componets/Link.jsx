@@ -11,7 +11,7 @@ export default function Link({ to, children, className, action, data }) {
     const go = e => {
         e.preventDefault();
         console.log('LINK:', action);
-        // window.location.hash = to || action;
+        window.location.hash = to || action;
         if (to) {
             dispach(navigate(to));
         } else {

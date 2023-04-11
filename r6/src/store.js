@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 import { addComment, commentDelete, commentShowHide, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
@@ -36,12 +36,29 @@ export const Store = createContext();
 export const Provider = (props) => {
 
 
+
+
     const [loader, setLoader] = useState(false);
 
     const [store, dispach] = useReducer(main, {
-        page: 'home',
+        page: 'empty',
         pageTop: 'nav'
     });
+
+    useEffect(() => {
+
+        console.log('app start');
+
+        const startPage = window.location.hash.substring(1) || 'home';
+
+   
+        dataDispach(actionsList[startPage]());
+
+        window.addEventListener('hashchange', (e) => {
+            console.log('has now:', window.location.hash)
+        });
+
+    }, []);
 
 
     const dataDispach = action => {
