@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { addComment, commentDelete, commentShowHide, commentsShowEdit, commonList, districtsCreate, districtsDelete, districtSection, districtsEdit, districtsList, districtsShowEdit, navigate, sectionsCreate, sectionsDelete, sectionsEdit, sectionsList, sectionsShowEdit } from './actions';
 import main from './Reducers/main';
 import axios from 'axios';
@@ -10,7 +10,7 @@ export const actionsList = {
     'sections-delete': sectionsDelete,
     'sections-show-edit': sectionsShowEdit,
     'sections-edit': sectionsEdit,
-    
+
     'districts-create': districtsCreate,
     'districts-list': districtsList,
     'districts-delete': districtsDelete,
@@ -22,7 +22,7 @@ export const actionsList = {
     'comment-delete': commentDelete,
 
     'common-list': commonList,
-    'district-section' : districtSection,
+    'district-section': districtSection,
     'add-comment': addComment,
 }
 
@@ -68,39 +68,11 @@ export const Provider = (props) => {
         pageTop: 'nav'
     });
 
-    useEffect(() => {
-
-        console.log('app start');
-
-        const viewHash = _ => {
-            let startPage = window.location.hash.substring(1) || 'home';
-            let params;
-
-            params = startPage.split('/');
-
-            startPage = params.shift();
-
-            params = params.length ? params : null
-
-            !pagesList.includes(startPage) && (startPage = '404'); // fancy if
-
-            if (actionsList[startPage]) {
-                dataDispach(actionsList[startPage](params));
-            } else {
-                dispach(navigate(startPage));
-            }
-        }
-
-        viewHash();
-
-        window.addEventListener('hashchange', (e) => {
-            viewHash();
-        });
-
-    }, []);
+    const hashNow = useRef();
 
 
-    const dataDispach = action => {
+
+    const dataDispach = useCallback(action => {
         if (!action.payload || !action.payload.url) {
             dispach(action);
             setLoader(false);
@@ -119,10 +91,9 @@ export const Provider = (props) => {
                         }, doDispach
                     }
                     dispach(action);
-                    if(!action.payload.show) {
+                    if (!action.payload.show) {
                         setLoader(false);
                     }
-                    
                 })
                 .catch(error => {
                     const errorAction = {};
@@ -132,17 +103,46 @@ export const Provider = (props) => {
                     errorAction.type = SHOW_MESSAGE;
                     errorAction.doDispach = doDispach;
                     dispach(errorAction);
-
                     setLoader(false);
                 })
         }
+    }, []);
 
 
-    }
-
-    const doDispach = action  => {
+    const doDispach = useCallback(action => {
         dataDispach(action);
-    }
+    }, [dataDispach]);
+
+    useEffect(() => {
+        console.log('app start');
+        const viewHash = _ => {
+            let startPage = window.location.hash.substring(1) || 'home';
+            console.log('HN:', hashNow.current)
+            if (hashNow.current === startPage) {
+                return;
+            }
+            hashNow.current = startPage;
+            let params;
+            params = startPage.split('/');
+            startPage = params.shift();
+            params = params.length ? params : null
+            !pagesList.includes(startPage) && (startPage = '404'); // fancy if
+            if (actionsList[startPage]) {
+                dataDispach(actionsList[startPage](params));
+            } else {
+                dispach(navigate(startPage));
+            }
+        }
+        viewHash();
+        window.addEventListener('hashchange', (e) => {
+            // viewHash();
+        });
+    }, [dataDispach]);
+
+
+
+
+
 
     return (
         <Store.Provider value={{

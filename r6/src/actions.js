@@ -136,7 +136,7 @@ export const commentDelete = id => {
     return {
         type: COMMENT_DELETE,
         payload: {
-            url: 'admin/comments/o/' + id,
+            url: 'admin/comments/' + id,
             method: 'delete',
             show: 'comments-show-edit',
             pauseShow: 0
